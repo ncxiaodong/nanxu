@@ -1,0 +1,25 @@
+# _config.yml
+title: 南序工作室
+description: 南序先生 | 辉旭为简 - 专业办公效率提升专家
+baseurl: ""
+url: ""
+language: zh-CN
+timezone: Asia/Shanghai
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:title/
+
+# Plugins
+plugins:
+  - jekyll-feed
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .gitignore
+  - .jekyll-cache
