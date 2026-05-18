@@ -1,6 +1,6 @@
 ---
 title: "18_AI智能体_Hermes-agent入门 - 公众号"
-date: 2026-05-16
+date: 2026-05-18
 categories: ["18", "AI智能体"]
 tags: [推广，公众号, 18_AI智能体_Hermes-agent入门]
 ---

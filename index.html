@@ -1,4 +1,293 @@
----
-layout: home
-title: 南序工作室 - 专业办公效率提升专家
----
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>南序 | 辉旭为简工作室 · 全栈IT服务与降本增效专家</title>
+    <meta name="description" content="全栈IT深耕，提供IT信息化项目、弱电工程、AI智能体部署、设备维保、企业降本增效及个人办公效率培训。免费企业诊断，南昌上门全国服务。">
+    <meta name="keywords" content="IT服务,AI智能体部署,弱电施工,设备维保,VBA自动化,企业降本增效,南昌IT公司">
+    <link rel="canonical" href="https://nanxu.vip/">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #0f172a; line-height: 1.5; scroll-behavior: smooth; }
+        :root {
+            --deep-blue: #0a2b3e;
+            --navy-dark: #071d2b;
+            --orange-accent: #e67e22;
+            --orange-hover: #cf711f;
+            --slate-light: #f8fafc;
+            --gray-border: #e2e8f0;
+            --text-muted: #334155;
+        }
+        .navbar {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(10, 43, 62, 0.92);
+            backdrop-filter: blur(12px); z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .nav-container { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 1rem; }
+        .logo img { height: 42px; width: auto; }
+        .logo .brand-text { font-size: 1.3rem; font-weight: 800; color: white; text-decoration: none; letter-spacing: 0.5px; }
+        .logo .brand-text span { color: var(--orange-accent); }
+        .logo .sub { font-size: 0.6rem; font-weight: 400; color: #cbd5e1; display: block; margin-top: 2px; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #f1f5f9; text-decoration: none; font-weight: 500; transition: 0.2s; font-size: 1rem; }
+        .nav-links a:hover, .nav-links a.active { color: var(--orange-accent); }
+        .mobile-menu-btn { display: none; font-size: 1.8rem; background: none; border: none; color: white; cursor: pointer; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; width: 100%; flex-direction: column; background: rgba(7, 29, 43, 0.98); backdrop-filter: blur(8px); padding: 1.5rem; border-radius: 1.5rem; margin-top: 1rem; }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .navbar { padding: 0.8rem 1.2rem; }
+        }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+        section { padding: 5rem 0; }
+        .section-title { font-size: 2.3rem; font-weight: 800; color: var(--deep-blue); text-align: center; margin-bottom: 1rem; }
+        .section-sub { text-align: center; color: var(--text-muted); max-width: 780px; margin: 0 auto 3rem auto; font-size: 1.1rem; }
+        .btn-primary {
+            background: var(--orange-accent); color: white; padding: 0.9rem 2.2rem;
+            border-radius: 40px; text-decoration: none; font-weight: 600;
+            display: inline-block; transition: 0.2s; border: none; cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .btn-primary:hover { background: var(--orange-hover); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(230,126,34,0.2); }
+        .btn-outline {
+            border: 2px solid var(--orange-accent); color: var(--orange-accent);
+            background: transparent; padding: 0.7rem 1.8rem; border-radius: 40px;
+            font-weight: 600; text-decoration: none; transition: 0.2s; display: inline-block;
+        }
+        .btn-outline:hover { background: var(--orange-accent); color: white; }
+        .hero {
+            height: 100vh; min-height: 720px;
+            background: linear-gradient(112deg, rgba(10,43,62,0.94) 0%, rgba(7,29,43,0.88) 100%), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2074&auto=format') center/cover no-repeat;
+            display: flex; align-items: center; color: white;
+        }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 0.8rem; }
+        .hero .hero-sub { font-size: 1.3rem; font-weight: 500; margin-bottom: 1rem; color: #ffd7a0; }
+        .hero .tagline { font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9; max-width: 600px; border-left: 3px solid var(--orange-accent); padding-left: 1rem; }
+        .hero-stats { display: flex; gap: 2.5rem; margin-top: 2.5rem; flex-wrap: wrap; }
+        .stat-item h3 { font-size: 2rem; font-weight: 800; color: var(--orange-accent); }
+        .stat-item p { font-weight: 500; letter-spacing: 0.5px; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; margin-top: 1rem; }
+        .service-card {
+            background: white; border-radius: 1.5rem; padding: 2rem;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.05); transition: all 0.3s ease;
+            border: 1px solid var(--gray-border);
+        }
+        .service-card:hover { transform: translateY(-8px); box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1); border-color: var(--orange-accent); }
+        .service-icon { font-size: 2.6rem; color: var(--orange-accent); margin-bottom: 1.2rem; }
+        .service-card h3 { font-size: 1.6rem; margin-bottom: 0.75rem; }
+        .service-card p { color: var(--text-muted); margin-bottom: 1.2rem; }
+        .dual-track { background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%); border-radius: 2rem; padding: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+        .track-card { background: white; border-radius: 1.5rem; padding: 2rem; box-shadow: 0 8px 20px rgba(0,0,0,0.02); border: 1px solid var(--gray-border); }
+        .track-icon { font-size: 2rem; color: var(--orange-accent); margin-bottom: 1rem; }
+        @media (max-width: 768px) { .dual-track { grid-template-columns: 1fr; } }
+        .case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        .case-item { background: var(--slate-light); border-radius: 1.5rem; overflow: hidden; transition: 0.2s; box-shadow: 0 6px 12px rgba(0,0,0,0.03); }
+        .case-img { height: 210px; background-size: cover; background-position: center; }
+        .case-info { padding: 1.5rem; }
+        .case-info h4 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .supply-banner { background: linear-gradient(120deg, #1e293b, var(--deep-blue)); border-radius: 2rem; padding: 2.5rem; color: white; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+        .process-steps { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.5rem; margin: 3rem 0; }
+        .step { flex: 1; text-align: center; background: white; padding: 1.5rem; border-radius: 2rem; box-shadow: 0 8px 20px rgba(0,0,0,0.03); border: 1px solid var(--gray-border); }
+        .step-num { width: 48px; height: 48px; background: var(--orange-accent); color: white; font-weight: 800; font-size: 1.5rem; border-radius: 60px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+        .faq-item { background: white; border-radius: 1rem; padding: 1.2rem 1.5rem; margin-bottom: 1rem; border: 1px solid var(--gray-border); cursor: pointer; }
+        .faq-question { font-weight: 700; display: flex; justify-content: space-between; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: 0.3s; color: var(--text-muted); }
+        .faq-item.active .faq-answer { max-height: 200px; margin-top: 0.8rem; }
+        .contact-block { background: var(--deep-blue); border-radius: 2rem; padding: 3rem 2rem; text-align: center; color: white; }
+        footer { background: var(--navy-dark); color: #94a3b8; padding: 2.5rem 0; }
+        .footer-grid { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero .hero-sub { font-size: 1rem; }
+            .section-title { font-size: 1.8rem; }
+            section { padding: 3rem 0; }
+        }
+        .badge { background: rgba(230,126,34,0.15); color: #f97316; padding: 0.2rem 1rem; border-radius: 30px; font-size: 0.8rem; font-weight: 600; display: inline-block; margin-bottom: 1rem; }
+        .founder-note { background: var(--slate-light); border-radius: 1rem; padding: 1.5rem; text-align: center; margin: 2rem 0; border-left: 4px solid var(--orange-accent); }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <a href="/"><img src="assets/images/logo.webp" alt="南序 LOGO"></a>
+            <div class="brand-text">辉旭为简工作室<span class="sub">全栈 IT 服务 · 实战落地</span></div>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="active">首页</a></li>
+            <li><a href="#services">服务</a></li>
+            <li><a href="#cases">案例</a></li>
+            <li><a href="about.html">关于</a></li>
+            <li><a href="blog.html">洞察</a></li>
+            <li><a href="#contact">联系</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="badge" style="background: rgba(255,255,255,0.2); color:#ffb347;">信誉为本 · 免费诊断先行</div>
+            <h1>全栈IT服务，免费诊断先行。</h1>
+            <div class="hero-sub">南序：施工 · 维保 · AI · 自动化 · 设备供应。</div>
+            <div class="tagline">从代码到弱电，从VBA到AI，实战落地。</div>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="#contact" class="btn-primary">免费企业诊断 →</a>
+                <a href="#services" class="btn-outline" style="border-color:white; color:white;">探索服务体系</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item"><h3>28+</h3><p>年全栈IT深耕</p></div>
+                <div class="stat-item"><h3>24h</h3><p>南昌上门/全国响应</p></div>
+                <div class="stat-item"><h3>100+</h3><p>企业长期信赖</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 六大服务 -->
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title">一站式信息技术服务 · 全域赋能</h2>
+            <div class="section-sub">从IT基建到AI部署，从设备供应链到员工效能提升，实战落地，品质保障</div>
+            <div class="services-grid">
+                <div class="service-card"><i class="fas fa-laptop-code service-icon"></i><h3>IT信息化项目承接</h3><p>软件系统开发、数字化平台、业务流程集成，全生命周期管理，技术前瞻，适配企业战略。</p><a href="services/it-project.html" class="btn-outline">了解更多 →</a></div>
+                <div class="service-card"><i class="fas fa-hard-hat service-icon"></i><h3>IT工程施工实施</h3><p>弱电智能化、综合布线、机房建设、安防监控，高标准施工，工程管理经验丰富。</p><a href="services/construction.html" class="btn-outline">了解更多 →</a></div>
+                <div class="service-card"><i class="fas fa-server service-icon"></i><h3>信息化设备维保</h3><p>服务器、存储、网络设备全生命周期维保，主动巡检+应急响应，保障业务连续性。</p><a href="services/maintenance.html" class="btn-outline">了解更多 →</a></div>
+                <div class="service-card"><i class="fas fa-robot service-icon"></i><h3>AI智能体部署/调优</h3><p>Openclaw、Hermes Agent企业级定制，知识库、自动化流程、智能客服，让AI真实落地。</p><a href="services/ai-agent.html" class="btn-outline">了解更多 →</a></div>
+                <div class="service-card"><i class="fas fa-chart-line service-icon"></i><h3>企业降本增效</h3><p>经营诊断、流程再造、Excel VBA自动化财务/销售报表，平均降本20%以上。</p><a href="services/efficiency.html" class="btn-outline">了解更多 →</a></div>
+                <div class="service-card"><i class="fas fa-graduation-cap service-icon"></i><h3>员工个人办公技巧</h3><p>Excel高级函数/VBA、AI工具提效、数据处理培训，提升全员数字素养，释放生产力。</p><a href="services/training.html" class="btn-outline">了解更多 →</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 双赛道 -->
+    <div class="container">
+        <div class="dual-track">
+            <div class="track-card"><i class="fas fa-building track-icon"></i><h3>企业降本增效方案</h3><ul style="margin-top:1rem; list-style: none;"><li>✓ 业务流程自动化（VBA/RPA）</li><li>✓ 经营数据驾驶舱搭建</li><li>✓ 供应链与库存优化</li><li>✓ IT资产全周期成本压缩</li><li>✓ 免费诊断+按效付费</li></ul></div>
+            <div class="track-card"><i class="fas fa-user-graduate track-icon"></i><h3>个人办公效率提升</h3><ul style="margin-top:1rem; list-style: none;"><li>✓ Excel VBA / 函数高阶实战</li><li>✓ AI办公助手（ChatGPT/智能体）</li><li>✓ 数据可视化与报表自动化</li><li>✓ 企业内训 / 1对1辅导</li><li>✓ 帮助员工减少30%重复劳动</li></ul></div>
+        </div>
+    </div>
+
+    <!-- 设备供应 -->
+    <div class="container">
+        <div class="supply-banner">
+            <div><i class="fas fa-microchip" style="font-size: 2rem; margin-right: 0.8rem;"></i> <strong style="font-size: 1.4rem;">高品质设备直供</strong><p style="margin-top: 0.4rem;">服务器 · 网络设备 · 办公电脑 · 安防监控 · 办公桌椅 —— 源头直采，品质保障</p></div>
+            <a href="#contact" class="btn-primary">获取采购方案 →</a>
+        </div>
+    </div>
+
+    <!-- 实战案例 -->
+    <section id="cases" style="background: var(--slate-light);">
+        <div class="container">
+            <h2 class="section-title">落地案例 · 口碑见证</h2>
+            <div class="section-sub">覆盖制造、贸易、教育、医疗等行业，每一个项目都带来切实效益</div>
+            <div class="case-grid">
+                <div class="case-item"><div class="case-img" style="background-image: url('https://images.unsplash.com/photo-1581092162384-898d6b1c1f6c?w=600&auto=format');"></div><div class="case-info"><h4>南昌某电子厂弱电智能化改造</h4><p>全厂网络重构+机房搬迁，实现零盲区，网络故障率降低78%，客户续签3年维保合同。</p><a href="cases/case1.html" class="btn-outline">查看详情 →</a></div></div>
+                <div class="case-item"><div class="case-img" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format');"></div><div class="case-info"><h4>某商贸公司VBA全自动对账系统</h4><p>销售订单到财务对账全自动，每月节省40人/小时，数据准确率100%，年节约成本20万。</p><a href="cases/case2.html" class="btn-outline">查看详情 →</a></div></div>
+                <div class="case-item"><div class="case-img" style="background-image: url('https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&auto=format');"></div><div class="case-info"><h4>某教育机构AI智能体部署</h4><p>基于Hermes Agent搭建智能问答助手，自动处理70%日常咨询，释放3名客服人力。</p><a href="cases/case3.html" class="btn-outline">查看详情 →</a></div></div>
+                <div class="case-item"><div class="case-img" style="background-image: url('https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?w=600&auto=format');"></div><div class="case-info"><h4>某制造企业IT维保托管</h4><p>服务器、ERP系统、网络设备全托管，故障响应＜30分钟，实现全年零重大事故。</p><a href="cases/case4.html" class="btn-outline">查看详情 →</a></div></div>
+            </div>
+            <div style="text-align:center; margin-top: 2rem;"><a href="cases.html" class="btn-primary">浏览全部案例 <i class="fas fa-arrow-right"></i></a></div>
+        </div>
+    </section>
+
+    <!-- 创始人 -->
+    <div class="container">
+        <div class="founder-note">
+            <i class="fas fa-user-tie" style="font-size: 2rem; color: var(--orange-accent); margin-bottom: 0.5rem; display: inline-block;"></i>
+            <p style="font-size: 1.1rem; font-weight: 500;">"从代码到弱电，从VBA到AI，实战落地。拒绝空谈，免费诊断先行。"<br>—— 陈辉，南序创始人</p>
+        </div>
+    </div>
+
+    <!-- 服务流程 -->
+    <div class="container">
+        <h2 class="section-title" style="margin-top: 1rem;">南序实战方法论</h2>
+        <div class="process-steps">
+            <div class="step"><div class="step-num">1</div><h4>免费诊断</h4><p>深入企业现场/线上会议，梳理痛点与效率瓶颈</p></div>
+            <div class="step"><div class="step-num">2</div><h4>定制方案</h4><p>输出可落地技术方案、预算及ROI预测</p></div>
+            <div class="step"><div class="step-num">3</div><h4>敏捷实施</h4><p>项目化管理，关键节点验收，保障质量与工期</p></div>
+            <div class="step"><div class="step-num">4</div><h4>持续优化</h4><p>交付后陪跑、培训与迭代，确保价值最大化</p></div>
+        </div>
+    </div>
+
+    <!-- 信任 + FAQ -->
+    <section style="background: white;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 2rem; margin-bottom: 3rem;">
+                <div style="text-align: center;"><i class="fas fa-shield-alt" style="font-size: 2rem; color: var(--orange-accent);"></i><h3>100%合同履约</h3><p>无隐形收费，按节点验收后付款</p></div>
+                <div style="text-align: center;"><i class="fas fa-trophy" style="font-size: 2rem; color: var(--orange-accent);"></i><h3>原厂认证工程师</h3><p>华为、华三、微软认证，10年以上经验</p></div>
+                <div style="text-align: center;"><i class="fas fa-clock" style="font-size: 2rem; color: var(--orange-accent);"></i><h3>7x24小时响应</h3><p>紧急故障2小时内远程/4小时到场（南昌）</p></div>
+            </div>
+            <h3 class="section-title" style="font-size: 1.8rem;">常见问题</h3>
+            <div class="faq-item"><div class="faq-question">免费诊断具体包含什么？<i class="fas fa-chevron-down"></i></div><div class="faq-answer">包含现场或线上业务流程调研、IT基础设施评估、效率瓶颈分析，并提供初步改善建议与报价参考，不收取任何费用。</div></div>
+            <div class="faq-item"><div class="faq-question">AI智能体部署周期多长？<i class="fas fa-chevron-down"></i></div><div class="faq-answer">标准场景下2-4周即可上线，包含需求分析、模型调优、集成与培训，支持主流开源智能体框架。</div></div>
+            <div class="faq-item"><div class="faq-question">维保服务覆盖哪些设备？<i class="fas fa-chevron-down"></i></div><div class="faq-answer">服务器、存储、交换机、防火墙、UPS、监控、办公电脑等全系列IT设备，支持混合云环境。</div></div>
+            <div class="faq-item"><div class="faq-question">是否接外地项目？<i class="fas fa-chevron-down"></i></div><div class="faq-answer">全国范围均可服务。硬件/远程类项目不受地域限制，需要现场的项目根据距离协商安排。</div></div>
+        </div>
+    </section>
+
+    <!-- 联系 -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-block">
+                <h3 style="font-size: 2rem;"><i class="fas fa-stethoscope"></i> 立即获取免费企业诊断</h3>
+                <p style="margin: 1rem 0; font-size: 1.1rem;">南昌本地可上门，全国远程服务。填写信息，资深顾问24小时内联系您。</p>
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin: 1.5rem 0;">
+                    <a href="tel:13576933022" style="color:white; font-size:1.3rem;"><i class="fas fa-phone-alt"></i> 135-7693-3022</a>
+                    <a href="mailto:nanxu_hui@qq.com" style="color:white; font-size:1.2rem;"><i class="fas fa-envelope"></i> nanxu_hui@qq.com</a>
+                </div>
+                <form action="mailto:nanxu_hui@qq.com" method="post" enctype="text/plain" style="max-width: 500px; margin: 0 auto; text-align: left;">
+                    <input type="text" name="name" placeholder="您的姓名 / 企业名称" required style="width:100%; padding:0.8rem; margin-bottom:1rem; border-radius: 40px; border: none;">
+                    <input type="tel" name="phone" placeholder="联系电话" required style="width:100%; padding:0.8rem; margin-bottom:1rem; border-radius: 40px; border: none;">
+                    <textarea name="message" rows="3" placeholder="简单描述您的需求或痛点" style="width:100%; padding:0.8rem; border-radius: 20px; border: none;"></textarea>
+                    <button type="submit" class="btn-primary" style="margin-top: 1rem; width: 100%;">免费预约诊断 →</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container footer-grid">
+        <div style="text-align: center;">
+            <img src="assets/images/logo.webp" alt="南序 LOGO" style="height: 28px; margin-bottom: 0.5rem;">
+            <div>© 2026 辉旭为简工作室</div>
+        </div>
+        <div><i class="fas fa-map-marker-alt"></i> 南昌 | 服务全国</div>
+        <div><a href="https://github.com/ncxiaodong" style="color:#94a3b8; margin:0 5px;" target="_blank"><i class="fab fa-github"></i> GitHub</a></div>
+    </div>
+</footer>
+
+<script>
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    if(mobileBtn) mobileBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.querySelector('.faq-question').addEventListener('click', () => {
+            item.classList.toggle('active');
+        });
+    });
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if(href === "#" || href === "") return;
+            const target = document.querySelector(href);
+            if(target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+                if(navLinks.classList.contains('active')) navLinks.classList.remove('active');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

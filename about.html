@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于南序 | 辉旭为简工作室</title>
+    <meta name="description" content="了解南序先生创始人陈辉，28年全栈IT深耕，从代码到弱电，从VBA到AI，实战落地。">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #0f172a; line-height: 1.7; }
+        :root { --deep-blue: #0a2b3e; --navy-dark: #071d2b; --orange-accent: #e67e22; --orange-hover: #cf711f; --slate-light: #f8fafc; --gray-border: #e2e8f0; --text-muted: #334155; }
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(10,43,62,0.92); backdrop-filter: blur(12px); z-index: 1000; padding: 1rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .nav-container { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo a { font-size: 1.6rem; font-weight: 800; color: white; text-decoration: none; }
+        .logo .sub { font-size: 0.7rem; color: #cbd5e1; display: block; }
+        .logo span { color:first-child span { color: var(--orange-accent); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #f1f5f9; text-decoration: none; font-weight: 500; transition: 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--orange-accent); }
+        .mobile-menu-btn { display: none; font-size: 1.8rem; background: none; border: none; color: white; cursor: pointer; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; width: 100%; flex-direction: column; background: rgba(7,29,43,0.98); padding: 1.5rem; border-radius: 1.5rem; margin-top: 1rem; }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .navbar { padding: 0.8rem 1.2rem; }
+        }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+        .page-header { background: linear-gradient(112deg, rgba(10,43,62,0.94), rgba(7,29,43,0.88)); color: white; padding: 8rem 0 3rem; text-align: center; }
+        .page-header h1 { font-size: 2.8rem; font-weight: 800; }
+        .page-header p { color: #ffd7a0; margin-top: 0.5rem; font-size: 1.1rem; }
+        section { padding: 4rem 0; }
+        .section-title { font-size: 2rem; font-weight: 800; color: var(--deep-blue); margin-bottom: 2rem; text-align: center; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+        .about-text { font-size: 1.05rem; color: var(--text-muted); }
+        .about-text p { margin-bottom: 1.2rem; }
+        .timeline { position: relative; padding-left: 2rem; border-left: 3px solid var(--orange-accent); }
+        .timeline-item { margin-bottom: 2rem; }
+        .timeline-item .year { font-weight: 800; color: var(--orange-accent); font-size: 1.2rem; }
+        .timeline-item p { color: var(--text-muted); }
+        .values-grid { display: grid; grid-template-columns: repeat: 3, 1fr; gap: 2rem; }
+        .value-card { text-align: center; padding: 2rem; border-radius: 1.5rem; border: 1px solid var(--gray-border); background: white; }
+        .value-card i { font-size: 2.5rem; color: var(--orange-accent); margin-bottom: 1rem; }
+        .value-card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .value-card p { color: var(--text-muted); }
+        .btn-primary { background: var(--orange-accent); color: white; padding: 0.9rem 2.2rem; border-radius: 40px; text-decoration: none; font-weight: 600; display: inline-block; transition: 0.2s; }
+        .btn-primary:hover { background: var(--orange-hover); transform: translateY(-2px); }
+        footer { background: var(--navy-dark); color: #94a3b8; padding: 2.5rem 0; text-align: center; }
+        @media (max-width: 768px) {
+            .about-grid { grid-template-columns: 1fr; }
+            .page-header h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo"><a href="/"><img src="assets/images/logo.webp" alt="南序 LOGO"></a><div class="brand-text">辉旭为简工作室<span class="sub">全栈 IT 服务 · 实战落地</span></div></div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/">首页</a></li>
+            <li><a href="/#services">服务</a></li>
+            <li><a href="/#cases">案例</a></li>
+            <li><a href="about.html" class="active">关于</a></li>
+            <li><a href="blog.html">洞察</a></li>
+            <li><a href="/#contact">联系</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="page-header">
+    <div class="container">
+        <h1>关于南序</h1>
+        <p>从代码到弱电，从VBA到AI，实战落地</p>
+    </div>
+</div>
+
+<section>
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-text">
+                <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--deep-blue); margin-bottom: 1.5rem;">辉旭为简工作室</h2>
+                <p>辉旭为简，寓意"光辉汇聚，化繁为简"。工作室由陈辉创立，深耕全栈IT领域28年，致力于为企业提供从IT基建到AI部署的一站式技术服务。</p>
+                <p>我们相信，专业的人做专业的事。把重复工作交给南序，你专注核心业务。从弱电施工到AI智能体，从Excel自动化到设备供应，每一个环节都以实战落地为准则。</p>
+                <p>核心说辞：<br>
+                "把重复工作交给南序，你专注核心业务"<br>
+                "专业的人做专业的事，你负责决策，我负责执行"</p>
+                <div style="margin-top: 2rem;">
+                    <a href="/#contact" class="btn-primary">免费企业诊断 →</a>
+                </div>
+            </div>
+            <div>
+                <div style="background: var(--slate-light); border-radius: 1.5rem; padding: 2rem; border-left: 4px solid var(--orange-accent);">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">创始人 · 陈辉</h3>
+                    <p style="color: var(--text-muted);">28年全栈IT深耕，从代码到弱电，从VBA到AI，实战落地。拒绝空谈，免费诊断先行。</p>
+                    <div style="margin-top: 1.5rem; display: flex; gap: 2rem; flex-wrap: wrap;">
+                        <div><strong style="color: var(--orange-accent);">28+</strong><br><span style="color: var(--text-muted); font-size: 0.9rem;">年行业经验</span></div>
+                        <div><strong style="color: var(--orange-accent);">100+</strong><br><span style="color: var(--text-muted); font-size: 0.9rem;">企业客户</span></div>
+                        <div><strong style="color: var(--orange-accent);">24h</strong><br><span style="color: var(--text-muted); font-size: 0.9rem;">响应承诺</span></div>
+                    </div>
+                </div>
+                <div style="margin-top: 2rem; background: white; border-radius: 1.5rem; padding: 2rem; border: 1px solid var(--gray-border);">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">发展历程</h3>
+                    <div class="timeline">
+                        <div class="timeline-item"><div class="year">1998 - 2008</div><p>深耕软件开发与系统集成，积累全栈技术功底</p></div>
+                        <div class="timeline-item"><div class="year">2008 - 2018</div><p>拓展IT工程与弱电施工，完成数百个项目交付</p></div>
+                        <div class="timeline-item"><div class="year">2018 - 2024</div><p>聚焦企业降本增效，VBA自动化与IT维保服务</p></div>
+                        <div class="timeline-item"><div class="year">2024 - 至今</div><p>AI智能体部署与调优，开启智能化服务新篇章</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="background: var(--slate-light);">
+    <div class="container">
+        <h2 class="section-title">核心价值</h2>
+        <div style="display: grid; grid-template-columns-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 2rem;">
+            <div class="value-card"><i class="fas fa-handshake"></i><h3>信誉为本</h3><p>100%合同履约，按节点验收后付款，无隐形收费</p></div>
+            <div class="value-card"><i class="fas fa-certificate"></i><h3>实战落地</h3><p>拒绝空谈，每一个方案都经过验证，可执行可交付</p></div>
+            <div class="value-card"><i class="fas fa-heart"></i><h3>长期陪伴</h3><p>交付不是终点，持续优化与培训确保价值最大化</p></div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>© 2026 南序 | 辉旭为简工作室</p>
+        <p style="margin-top: 0.5rem;"><i class="fas fa-map-marker-alt"></i> 南昌 | 服务全国</p>
+    </div>
+</footer>
+
+<script>
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    if(mobileBtn) mobileBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+</script>
+</body>
+</html>

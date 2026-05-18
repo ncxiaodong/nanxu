@@ -1,149 +1,179 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title }} | 南序工作室</title>
-  <meta name="description" content="南序先生 | 辉旭为简 - 专业办公效率提升专家">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif; color: #333; line-height: 1.6; }
-    
-    /* Header */
-    header { background: linear-gradient(135deg, #1a3a5c 0%, #2c5f8a 100%); color: #fff; padding: 60px 20px; text-align: center; }
-    header h1 { font-size: 2.5em; margin-bottom: 10px; }
-    header p { font-size: 1.2em; opacity: 0.9; }
-    header .btn { display: inline-block; margin-top: 20px; padding: 12px 30px; background: #e67e22; color: #fff; text-decoration: none; border-radius: 5px; font-size: 1.1em; transition: background 0.3s; }
-    header .btn:hover { background: #d35400; }
-    
-    /* Navigation */
-    nav { background: #fff; border-bottom: 1px solid #e0e0e0; padding: 15px 20px; text-align: center; position: sticky; top: 0; z-index: 100; }
-    nav a { color: #2c5f8a; text-decoration: none; margin: 0 15px; font-size: 1em; font-weight: 500; }
-    nav a:hover { color: #e67e22; }
-    
-    /* Container */
-    .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
-    
-    /* Section titles */
-    h2 { font-size: 1.8em; color: #1a3a5c; text-align: center; margin-bottom: 30px; }
-    h2:after { content: ""; display: block; width: 60px; height: 3px; background: #e67e22; margin: 10px auto; }
-    
-    /* Services */
-    .services { padding: 40px 0; }
-    .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-    .service-card { background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 8px; padding: 25px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; }
-    .service-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-    .service-card .icon { font-size: 2.5em; margin-bottom: 15px; }
-    .service-card h3 { color: #1a3a5c; margin-bottom: 10px; }
-    .service-card p { color: #666; font-size: 0.95em; }
-    
-    /* Cases / Blog */
-    .cases { background: #f8f9fa; padding: 40px 0; }
-    .case-list { list-style: none; }
-    .case-list li { background: #fff; border: 1px solid #e0e0e0; border-radius: 5px; margin-bottom: 10px; padding: 15px 20px; transition: border-color 0.3s; }
-    .case-list li:hover { border-color: #2c5f8a; }
-    .case-list li a { color: #2c5f8a; text-decoration: none; font-size: 1.05em; }
-    .case-list li a:hover { color: #e67e22; }
-    .case-list .date { color: #999; font-size: 0.85em; margin-left: 10px; }
-    
-    /* About */
-    .about { padding: 40px 0; }
-    .about p { max-width: 700px; margin: 0 auto 15px; text-align: center; color: #555; }
-    
-    /* Contact */
-    .contact { background: #1a3a5c; color: #fff; padding: 40px 20px; text-align: center; }
-    .contact h2 { color: #fff; }
-    .contact h2:after { background: #e67e22; }
-    .contact p { margin: 10px 0; font-size: 1.1em; }
-    .contact .phone { font-size: 1.5em; font-weight: bold; color: #e67e22; }
-    
-    /* Footer */
-    footer { background: #0f263b; color: #8899aa; padding: 30px 20px; text-align: center; font-size: 0.9em; }
-    footer a { color: #e67e22; text-decoration: none; }
-    
-    /* Responsive */
-    @media (max-width: 600px) {
-      header h1 { font-size: 1.8em; }
-      nav a { margin: 0 8px; font-size: 0.9em; }
-      .service-grid { grid-template-columns: 1fr; }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>南序先生 | 辉旭为简</h1>
-    <p>把重复工作交给南序先生，你专注核心业务</p>
-    <a href="#services" class="btn">了解更多</a>
-  </header>
+---
+layout: default
+---
 
-  <nav>
-    <a href="/">首页</a>
-    <a href="#services">服务</a>
-    <a href="#cases">案例</a>
-    <a href="#about">关于</a>
-    <a href="#contact">联系</a>
-  </nav>
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">南昌本地 · 专业服务</div>
+    <h1>南序先生</h1>
+    <p class="subtitle">辉旭为简工作室</p>
+    <p class="slogan">把重复工作交给南序先生，你专注核心业务<br>专业的人做专业的事，你负责决策，我负责执行</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">了解服务 →</a>
+      <a href="#contact" class="btn-secondary">联系咨询</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">10+</div>
+        <div class="label">年行业经验</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">500+</div>
+        <div class="label">服务客户</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">6</div>
+        <div class="label">大业务板块</div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- Services -->
+<section id="services" class="services">
   <div class="container">
-    <section id="services" class="services">
+    <div class="section-title">
       <h2>核心服务</h2>
-      <div class="service-grid">
-        <div class="service-card">
-          <div class="icon">🛠️</div>
-          <h3>施工服务</h3>
-          <p>弱电工程、机房建设、网络布线、综合布线</p>
-        </div>
-        <div class="service-card">
-          <div class="icon">📊</div>
-          <h3>顾问服务</h3>
-          <p>企业降本增效、流程诊断优化、数字化转型</p>
-        </div>
-        <div class="service-card">
-          <div class="icon">🔧</div>
-          <h3>咨询服务</h3>
-          <p>系统维保、硬件维护、IT 技术支持</p>
-        </div>
-        <div class="service-card">
-          <div class="icon">🤖</div>
-          <h3>AI 智能体</h3>
-          <p>自动化办公、AI 流程搭建、智能客服</p>
+      <p>从诊断到实施，从维保到升级，一站式技术服务</p>
+      <div class="bar"></div>
+    </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <span class="icon">🛠️</span>
+        <h3>施工服务</h3>
+        <p>弱电工程、机房建设、网络布线、综合布线。从方案设计到施工验收，全程专业把控。</p>
+        <span class="tag">了解详情 →</span>
+      </div>
+      <div class="service-card">
+        <span class="icon">📋</span>
+        <h3>服务外包</h3>
+        <p>办公效率提升、流程优化、IT 系统运维。把重复性工作交给我们，你专注核心业务。</p>
+        <span class="tag">了解详情 →</span>
+      </div>
+      <div class="service-card">
+        <span class="icon">📊</span>
+        <h3>顾问服务</h3>
+        <p>企业降本增效、流程诊断优化、数字化转型咨询。用专业视角发现你的增长空间。</p>
+        <span class="tag">了解详情 →</span>
+      </div>
+      <div class="service-card">
+        <span class="icon">🔧</span>
+        <h3>咨询服务</h3>
+        <p>系统维保、硬件维护、IT 技术支持、网络故障排查。快速响应，专业解决。</p>
+        <span class="tag">了解详情 →</span>
+      </div>
+      <div class="service-card">
+        <span class="icon">🤖</span>
+        <h3>AI 智能体</h3>
+        <p>AI 办公自动化、提示词工程、智能客服、流程自动化。让 AI 为你工作。</p>
+        <span class="tag">了解详情 →</span>
+      </div>
+      <div class="service-card">
+        <span class="icon">💻</span>
+        <h3>办公设备</h3>
+        <p>IT 设备采购供应、办公用品、办公家具。品质保障，价格合理，售后无忧。</p>
+        <span class="tag">了解详情 →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Advantages -->
+<section class="advantages">
+  <div class="container">
+    <div class="section-title">
+      <h2>为什么选择我们</h2>
+      <p>专业、靠谱、高效，是你值得信赖的技术伙伴</p>
+      <div class="bar"></div>
+    </div>
+    <div class="adv-grid">
+      <div class="adv-card">
+        <div class="icon-wrap">📍</div>
+        <h3>本地服务</h3>
+        <p>扎根南昌，服务本地。快速响应，上门服务，随叫随到。本地团队更懂本地需求。</p>
+      </div>
+      <div class="adv-card">
+        <div class="icon-wrap">⭐</div>
+        <h3>十年经验</h3>
+        <p>十年行业深耕，数百项目实战。从弱电施工到 AI 智能体，技术能力全面覆盖。</p>
+      </div>
+      <div class="adv-card">
+        <div class="icon-wrap">🔄</div>
+        <h3>一站式服务</h3>
+        <p>从需求诊断、方案设计、项目实施到后期维保，全流程服务，省心省力。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cases -->
+<section id="cases" class="cases">
+  <div class="container">
+    <div class="section-title">
+      <h2>服务案例</h2>
+      <p>用实力说话，用案例证明</p>
+      <div class="bar"></div>
+    </div>
+    <div class="case-grid">
+      <div class="case-card">
+        <div class="case-img">🏗️</div>
+        <div class="case-body">
+          <div class="cat">弱电施工</div>
+          <h3>某企业办公楼弱电改造</h3>
+          <p>整栋办公楼网络布线、监控系统、门禁系统全面升级，工期 15 天，零故障交付。</p>
+          <a href="#contact" class="btn-case">查看详情 →</a>
         </div>
       </div>
-    </section>
-  </div>
-
-  <section id="cases" class="cases">
-    <div class="container">
-      <h2>最新文章</h2>
-      <ul class="case-list">
-        {% for post in site.posts limit: 10 %}
-        <li>
-          <a href="{{ post.url }}">{{ post.title }}</a>
-          <span class="date">{{ post.date | date: "%Y年%m月%d日" }}</span>
-        </li>
-        {% endfor %}
-      </ul>
+      <div class="case-card">
+        <div class="case-img">🤖</div>
+        <div class="case-body">
+          <div class="cat">AI 智能体</div>
+          <h3>某公司客服流程自动化</h3>
+          <p>搭建 AI 智能客服系统，自动处理 80% 常见咨询，人工介入率降低 70%。</p>
+          <a href="#contact" class="btn-case">查看详情 →</a>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-img">🔧</div>
+        <div class="case-body">
+          <div class="cat">系统维保</div>
+          <h3>某企业 IT 系统年度维保</h3>
+          <p>服务器、网络设备、办公电脑全托管维保，故障 4 小时内响应，系统可用率 99.9%。</p>
+          <a href="#contact" class="btn-case">查看详情 →</a>
+        </div>
+      </div>
     </div>
-  </section>
-
-  <div class="container">
-    <section id="about" class="about">
-      <h2>关于南序</h2>
-      <p>南序先生是辉旭为简工作室旗下品牌，专注于为企业和个人提供专业的技术服务与咨询。</p>
-      <p>我们的使命：让技术回归服务本质，让专业的人做专业的事。</p>
-      <p>服务覆盖：弱电施工、系统维保、办公自动化、AI 智能体、咨询诊断等多个领域。</p>
-    </section>
   </div>
+</section>
 
-  <section id="contact" class="contact">
-    <h2>联系我们</h2>
-    <p class="phone">📞 咨询热线</p>
-    <p>有问题找南序，专业的事交给专业的人</p>
-    <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.8;">南序先生 | 辉旭为简工作室</p>
-  </section>
-
-  <footer>
-    <p>&copy; 2026 南序先生 | 辉旭为简工作室 | 有问题找南序</p>
-  </footer>
-</body>
-</html>
+<!-- Contact -->
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="section-title">
+      <h2>联系我们</h2>
+      <p>有问题找南序，专业的事交给专业的人</p>
+      <div class="bar"></div>
+    </div>
+    <div class="contact-info">
+      <div class="contact-item">
+        <span class="ci-icon">📞</span>
+        <div class="ci-label">咨询热线</div>
+        <div class="ci-tel"><a href="tel:13576933022">135-7693-3022</a></div>
+      </div>
+      <div class="contact-item">
+        <span class="ci-icon">✉️</span>
+        <div class="ci-label">电子邮箱</div>
+        <div class="ci-value"><a href="mailto:nanxu_hui@qq.com">nanxu_hui@qq.com</a></div>
+      </div>
+      <div class="contact-item">
+        <span class="ci-icon">📍</span>
+        <div class="ci-label">服务区域</div>
+        <div class="ci-value">南昌 · 覆盖全国</div>
+      </div>
+    </div>
+    <div class="contact-cta">
+      <a href="tel:13576933022" class="btn-contact-cta">📞 立即拨打</a>
+    </div>
+  </div>
+</section>
