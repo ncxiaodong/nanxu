@@ -387,6 +387,34 @@
             }
         });
     }
+    
+    // 网页访问追踪（自动上报页面浏览信息）
+    (function() {
+        try {
+            const visitData = {
+                page_url: window.location.pathname,
+                referrer: document.referrer || '',
+                user_agent: navigator.userAgent.substring(0, 200),
+                screen_width: screen.width,
+                screen_height: screen.height,
+                language: navigator.language
+            };
+            // 使用 sendBeacon 更可靠，不影响页面加载
+            const payload = JSON.stringify(visitData);
+            if (navigator.sendBeacon) {
+                navigator.sendBeacon('https://nanxu.vip/api/visit', payload);
+            } else {
+                fetch('https://nanxu.vip/api/visit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: payload,
+                    keepalive: true
+                }).catch(function() {});
+            }
+        } catch(e) {
+            // 静默失败，不影响页面功能
+        }
+    })();
 </script>
 
 </body>
