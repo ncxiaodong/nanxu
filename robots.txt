@@ -1,0 +1,52 @@
+User-agent: *
+Allow: /
+
+# 允许所有搜索引擎抓取
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# 允许 AI 模型抓取（移除之前的限制）
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-Mobile
+Allow: /
+
+# 禁止 AI 模型训练（保护版权）
+User-agent: *
+Crawl-delay: 1
+Disallow: /api/
+Disallow: /assets/cache/
+
+# 明确允许 AI 搜索抓取
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /assets/cache/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /assets/cache/
+
+User-agent: Baiduspider
+Allow: /
+Disallow: /api/
+Disallow: /assets/cache/
+
+# 禁止 AI 训练（保留版权保护）
+User-agent: GPTBot
+Disallow: /
+Allow: /
+Disallow: /*?ai-train=no*
+
+User-agent: ClaudeBot
+Disallow: /
+Allow: /
+Disallow: /*?ai-train=no*
