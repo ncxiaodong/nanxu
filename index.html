@@ -6,8 +6,31 @@
     <title>南序 | 辉旭为简工作室 · 全栈IT服务与降本增效专家</title>
     <meta name="description" content="全栈IT深耕，提供IT信息化项目、弱电工程、AI智能体部署、设备维保、企业降本增效及个人办公效率培训。免费企业诊断，南昌上门全国服务。">
     <meta name="keywords" content="IT服务,AI智能体部署,弱电施工,设备维保,VBA自动化,企业降本增效,南昌IT公司">
-    <link rel="canonical" href="https://nanxu.vip/">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://nanxu.vip/">
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <meta property="og:title" content="南序 | 辉旭为简工作室 · 全栈IT服务与降本增效专家">
+    <meta property="og:description" content="全栈IT深耕，提供IT信息化项目、弱电工程、AI智能体部署、设备维保、企业降本增效及个人办公效率培训。免费企业诊断，南昌上门全国服务。">
+    <meta property="og:url" content="https://nanxu.vip/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://nanxu.vip/assets/images/logo.webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "辉旭为简工作室",
+      "alternateName": "南序",
+      "description": "全栈IT深耕，提供IT信息化项目、弱电工程、AI智能体部署、设备维保、企业降本增效及个人办公效率培训。",
+      "url": "https://nanxu.vip",
+      "telephone": "13576933022",
+      "email": "nanxu_hui@qq.com",
+      "areaServed": {"@type": "City", "name": "南昌"},
+      "founder": {"@type": "Person", "name": "陈辉"},
+      "foundingDate": "2024",
+      "priceRange": "¥¥"
+    }
+    </script>
+    <link href="https://fonts.googleapis.com"
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -103,10 +126,34 @@
         footer { background: var(--navy-dark); color: #94a3b8; padding: 2.5rem 0; }
         .footer-grid { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
         @media (max-width: 768px) {
+            .hero { min-height: 500px; }
             .hero h1 { font-size: 2rem; }
             .hero .hero-sub { font-size: 1rem; }
+            .hero .tagline { font-size: 0.95rem; }
+            .hero-stats { gap: 1.5rem; }
+            .stat-item h3 { font-size: 1.6rem; }
             .section-title { font-size: 1.8rem; }
             section { padding: 3rem 0; }
+            .container { padding: 0 1.2rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .case-grid { grid-template-columns: 1fr; }
+            .process-steps { flex-direction: column; }
+            .nav-links { display: none; width: 100%; flex-direction: column; background: rgba(7, 29, 43, 0.98); backdrop-filter: blur(8px); padding: 1.5rem; border-radius: 1.5rem; margin-top: 1rem; }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .navbar { padding: 0.8rem 1.2rem; }
+            .dual-track { grid-template-columns: 1fr; }
+            .supply-banner { flex-direction: column; text-align: center; gap: 1rem; }
+        }
+        @media (max-width: 480px) {
+            .hero { min-height: 420px; }
+            .hero h1 { font-size: 1.6rem; }
+            .container { padding: 0 0.8rem; }
+            section { padding: 2rem 0; }
+            .service-card { padding: 1.2rem; }
+            .logo .brand-text { font-size: 1rem; }
+            .contact-block { padding: 2rem 1rem; }
+            .footer-grid { flex-direction: column; text-align: center; }
         }
         .badge { background: rgba(230,126,34,0.15); color: #f97316; padding: 0.2rem 1rem; border-radius: 30px; font-size: 0.8rem; font-weight: 600; display: inline-block; margin-bottom: 1rem; }
         .founder-note { background: var(--slate-light); border-radius: 1rem; padding: 1.5rem; text-align: center; margin: 2rem 0; border-left: 4px solid var(--orange-accent); }

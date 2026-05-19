@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <meta property="og:title" content="关于南序 | 辉旭为简工作室">
+    <meta property="og:description" content="了解南序先生创始人陈辉，28年全栈IT深耕，从代码到弱电，从VBA到AI，实战落地。">
+    <meta property="og:url" content="https://nanxu.vip/about.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://nanxu.vip/assets/images/logo.webp">
     <title>关于南序 | 辉旭为简工作室</title>
     <meta name="description" content="了解南序先生创始人陈辉，28年全栈IT深耕，从代码到弱电，从VBA到AI，实战落地。">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,7 +21,9 @@
         .nav-container { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .logo a { font-size: 1.6rem; font-weight: 800; color: white; text-decoration: none; }
         .logo .sub { font-size: 0.7rem; color: #cbd5e1; display: block; }
-        .logo span { color:first-child span { color: var(--orange-accent); }
+        .logo span { color: var(--orange-accent); }
+        .logo .brand-text { font-size: 1.3rem; font-weight: 800; color: white; text-decoration: none; letter-spacing: 0.5px; }
+        .logo .brand-text span { color: var(--orange-accent); }
         .nav-links { display: flex; gap: 2rem; list-style: none; }
         .nav-links a { color: #f1f5f9; text-decoration: none; font-weight: 500; transition: 0.2s; }
         .nav-links a:hover, .nav-links a.active { color: var(--orange-accent); }
@@ -39,7 +47,7 @@
         .timeline-item { margin-bottom: 2rem; }
         .timeline-item .year { font-weight: 800; color: var(--orange-accent); font-size: 1.2rem; }
         .timeline-item p { color: var(--text-muted); }
-        .values-grid { display: grid; grid-template-columns: repeat: 3, 1fr; gap: 2rem; }
+        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
         .value-card { text-align: center; padding: 2rem; border-radius: 1.5rem; border: 1px solid var(--gray-border); background: white; }
         .value-card i { font-size: 2.5rem; color: var(--orange-accent); margin-bottom: 1rem; }
         .value-card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
@@ -50,6 +58,20 @@
         @media (max-width: 768px) {
             .about-grid { grid-template-columns: 1fr; }
             .page-header h1 { font-size: 2rem; }
+            .container { padding: 0 1.2rem; }
+            section { padding: 2.5rem 0; }
+            .page-header { padding: 6rem 0 2rem; }
+            .values-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; width: 100%; flex-direction: column; background: rgba(7,29,43,0.98); padding: 1.5rem; border-radius: 1.5rem; margin-top: 1rem; }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .navbar { padding: 0.8rem 1.2rem; }
+        }
+        @media (max-width: 480px) {
+            .page-header h1 { font-size: 1.6rem; }
+            .container { padding: 0 0.8rem; }
+            section { padding: 2rem 0; }
+            .value-card { padding: 1.2rem; }
         }
     </style>
 </head>
@@ -117,7 +139,7 @@
 <section style="background: var(--slate-light);">
     <div class="container">
         <h2 class="section-title">核心价值</h2>
-        <div style="display: grid; grid-template-columns-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 2rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 2rem;">
             <div class="value-card"><i class="fas fa-handshake"></i><h3>信誉为本</h3><p>100%合同履约，按节点验收后付款，无隐形收费</p></div>
             <div class="value-card"><i class="fas fa-certificate"></i><h3>实战落地</h3><p>拒绝空谈，每一个方案都经过验证，可执行可交付</p></div>
             <div class="value-card"><i class="fas fa-heart"></i><h3>长期陪伴</h3><p>交付不是终点，持续优化与培训确保价值最大化</p></div>
