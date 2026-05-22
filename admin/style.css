@@ -1,0 +1,36 @@
+/* 基础重置和全局样式 */
+body { font-family: 'Microsoft YaHei', Arial, sans-serif; background-color: #f4f7f9; color: #333; margin: 0; padding: 20px; }
+.container { max-width: 1200px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+h1 { color: #1a3b6c; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 30px; text-align: center; }
+h2 { color: #3478e5; border-left: 5px solid #3478e5; padding-left: 10px; margin-top: 40px; margin-bottom: 20px; }
+
+/* 登录容器 */
+.login-container { max-width: 400px; margin: 80px auto; text-align: center; padding: 40px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; }
+.login-container input[type="password"] { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
+.login-container button { width: 100%; padding: 12px; background-color: #3478e5; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; transition: background-color 0.3s; }
+.login-container button:hover { background-color: #2a6bbd; }
+
+/* Dashboard 内容 */
+.hidden { display: none !important; }
+
+/* 数据卡片样式 */
+#stats p { font-size: 18px; margin: 10px 0; padding: 15px; background: #e6f7ff; border-left: 4px solid #3478e5; border-radius: 4px; }
+#stats p span { font-weight: bold; color: #1a3b6c; }
+
+/* 表格样式 */
+.table-wrapper { overflow-x: auto; margin-top: 20px; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
+th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; }
+thead th { background-color: #3478e5; color: white; font-weight: bold; }
+tbody tr:hover { background-color: #f0faff; cursor: pointer; }
+
+/* Modal (弹窗) 样式 */
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); }
+.modal-content { background-color: #fff; margin: 5% auto; padding: 25px; border-radius: 8px; width: 60%; max-width: 700px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+.modal-content h3 { color: #d9534f; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+.modal-content input[type="text"] { width: 100%; padding: 10px; margin: 10px 0 15px 0; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+.modal-content button { padding: 10px 20px; background-color: #3478e5; color: white; border: none; border-radius: 4px; cursor: pointer; }
+.modal-content button:hover { background-color: #2a6bbd; }
+.ip-info { margin-top: 15px; padding: 15px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 4px; }
+.ip-info p { margin: 5px 0; }
+.ip-info strong { color: #1a3b6c; }
