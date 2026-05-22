@@ -412,7 +412,7 @@ async function loadContacts(p) {
         var d = await r.json();
         if (d.success && d.contacts && d.contacts.length > 0) {
             contactTotal = d.total || 0;
-            document.getElementById('contactInfo').textContent = d.total + ' 条记录';
+            document.getElementById('contactInfo').textContent = d.total + ' 条记录（第 ' + d.page + '/' + Math.ceil(d.total / d.pageSize) + ' 页）';
             tbody.innerHTML = d.contacts.map(function(row) {
                 var msg = row.message ? row.message.substring(0, 30) + (row.message.length > 30 ? '...' : '') : '-';
                 var time = row.timestamp ? new Date(row.timestamp).toLocaleString('zh-CN') : '-';
