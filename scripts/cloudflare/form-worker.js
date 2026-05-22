@@ -193,7 +193,7 @@ export default {
         for (let k = 0; k < batch.length; k++) {
           const ip = batch[k];
           try {
-            const resp = await fetch('http://ip-api.com/json/' + ip + '?fields=query,country,regionName,city,status');
+            const resp = await fetch('http://ip-api.com/json/' + ip + '?fields=query,country,regionName,city,status&lang=zh-CN');
             const data = await resp.json();
             results.push(data);
           } catch (e) {
