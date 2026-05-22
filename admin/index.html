@@ -63,6 +63,13 @@
         .clickable { cursor: pointer; }
         .clickable:hover { text-decoration: underline; color: #4a6cf7; }
         .ip-cell { font-family: monospace; font-size: 12px; }
+        /* Tab 切换 */
+        .tab-bar { display: flex; gap: 0; margin-bottom: 20px; background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden; }
+        .tab-btn { flex: 1; padding: 14px 20px; border: none; background: #fff; font-size: 15px; font-weight: 500; color: #888; cursor: pointer; transition: all 0.2s; text-align: center; }
+        .tab-btn:hover { background: #f8f9ff; color: #4a6cf7; }
+        .tab-btn.active { background: #4a6cf7; color: #fff; font-weight: 600; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
 <body>
@@ -82,100 +89,116 @@
     <!-- 后台内容 -->
     <div id="dashboardSection" class="hidden">
 
-        <!-- 日期范围选择 -->
-        <div class="date-range">
-            <label>日期范围：</label>
-            <input type="date" id="startDate">
-            <span>至</span>
-            <input type="date" id="endDate">
-            <button onclick="loadAllData()">查询</button>
-            <button class="reset-btn" onclick="resetDateRange()">重置</button>
+        <!-- Tab 导航 -->
+        <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab('visit')">访问记录</button>
+            <button class="tab-btn" onclick="switchTab('contact')">登记记录</button>
         </div>
 
-        <!-- 访问统计概览 -->
-        <h2>访问统计概览</h2>
-        <div class="stats-grid" id="stats">
-            <div class="stat-card"><div class="label">总访问量</div><div class="value" id="statTotal">-</div></div>
-            <div class="stat-card"><div class="label">独立访客</div><div class="value" id="statUnique">-</div></div>
-            <div class="stat-card"><div class="label">今日访问</div><div class="value" id="statToday">-</div></div>
-            <div class="stat-card"><div class="label">中国</div><div class="value" id="statCN">-</div></div>
-            <div class="stat-card"><div class="label">美国</div><div class="value" id="statUS">-</div></div>
-            <div class="stat-card"><div class="label">其他</div><div class="value" id="statOther">-</div></div>
-        </div>
+        <!-- ===== Tab 1: 访问记录 ===== -->
+        <div id="tabVisit" class="tab-content active">
 
-        <!-- 热门页面 -->
-        <h2>热门页面</h2>
-        <div class="table-area">
-            <div class="table-wrapper">
-                <table><thead><tr><th>页面</th><th>次数</th></tr></thead><tbody id="topPagesBody"></tbody></table>
+            <!-- 日期范围选择 -->
+            <div class="date-range">
+                <label>日期范围：</label>
+                <input type="date" id="startDate">
+                <span>至</span>
+                <input type="date" id="endDate">
+                <button onclick="loadAllData()">查询</button>
+                <button class="reset-btn" onclick="resetDateRange()">重置</button>
             </div>
-        </div>
 
-        <!-- 来源渠道 -->
-        <h2>来源渠道</h2>
-        <div class="table-area">
-            <div class="table-wrapper">
-                <table><thead><tr><th>来源</th><th>次数</th></tr></thead><tbody id="referrerBody"></tbody></table>
+            <!-- 访问统计概览 -->
+            <h2>访问统计概览</h2>
+            <div class="stats-grid" id="stats">
+                <div class="stat-card"><div class="label">总访问量</div><div class="value" id="statTotal">-</div></div>
+                <div class="stat-card"><div class="label">独立访客</div><div class="value" id="statUnique">-</div></div>
+                <div class="stat-card"><div class="label">今日访问</div><div class="value" id="statToday">-</div></div>
+                <div class="stat-card"><div class="label">中国</div><div class="value" id="statCN">-</div></div>
+                <div class="stat-card"><div class="label">美国</div><div class="value" id="statUS">-</div></div>
+                <div class="stat-card"><div class="label">其他</div><div class="value" id="statOther">-</div></div>
             </div>
-        </div>
 
-        <!-- 设备分布 -->
-        <h2>设备分布</h2>
-        <div class="table-area">
-            <div class="table-wrapper">
-                <table><thead><tr><th>设备</th><th>次数</th></tr></thead><tbody id="deviceBody"></tbody></table>
+            <!-- 热门页面 -->
+            <h2>热门页面</h2>
+            <div class="table-area">
+                <div class="table-wrapper">
+                    <table><thead><tr><th>页面</th><th>次数</th></tr></thead><tbody id="topPagesBody"></tbody></table>
+                </div>
             </div>
-        </div>
 
-        <!-- 详细访问记录 -->
-        <div class="section-header">
-            <h2>详细访问记录</h2>
-            <span class="info" id="visitInfo"></span>
-        </div>
-        <div class="table-area">
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>时间</th>
-                            <th>IP</th>
-                            <th>归属地</th>
-                            <th>页面</th>
-                            <th>来源</th>
-                            <th>设备</th>
-                            <th>系统</th>
-                            <th>语言</th>
-                        </tr>
-                    </thead>
-                    <tbody id="visitsBody"></tbody>
-                </table>
+            <!-- 来源渠道 -->
+            <h2>来源渠道</h2>
+            <div class="table-area">
+                <div class="table-wrapper">
+                    <table><thead><tr><th>来源</th><th>次数</th></tr></thead><tbody id="referrerBody"></tbody></table>
+                </div>
             </div>
-            <div class="pagination" id="visitPagination"></div>
-        </div>
 
-        <!-- 联系表单记录 -->
-        <div class="section-header">
-            <h2>联系表单记录</h2>
-            <span class="info" id="contactInfo"></span>
-        </div>
-        <div class="table-area">
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr><th>ID</th><th>姓名</th><th>邮箱</th><th>电话</th><th>公司</th><th>消息摘要</th><th>时间</th></tr>
-                    </thead>
-                    <tbody id="contactsBody"></tbody>
-                </table>
+            <!-- 设备分布 -->
+            <h2>设备分布</h2>
+            <div class="table-area">
+                <div class="table-wrapper">
+                    <table><thead><tr><th>设备</th><th>次数</th></tr></thead><tbody id="deviceBody"></tbody></table>
+                </div>
             </div>
-            <div class="pagination" id="contactPagination"></div>
+
+            <!-- 详细访问记录 -->
+            <div class="section-header">
+                <h2>详细访问记录</h2>
+                <span class="info" id="visitInfo"></span>
+            </div>
+            <div class="table-area">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>时间</th>
+                                <th>IP</th>
+                                <th>归属地</th>
+                                <th>页面</th>
+                                <th>来源</th>
+                                <th>设备</th>
+                                <th>系统</th>
+                                <th>语言</th>
+                            </tr>
+                        </thead>
+                        <tbody id="visitsBody"></tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="visitPagination"></div>
+            </div>
+
+            <!-- IP 归属地查询 -->
+            <h2>IP 归属地查询</h2>
+            <div class="ip-lookup">
+                <input type="text" id="ipInput" placeholder="输入 IP 地址（如：59.53.32.231）">
+                <button onclick="fetchIpInfo()">查询</button>
+                <div id="ipResult"></div>
+            </div>
+
         </div>
 
-        <!-- IP 归属地查询 -->
-        <h2>IP 归属地查询</h2>
-        <div class="ip-lookup">
-            <input type="text" id="ipInput" placeholder="输入 IP 地址（如：59.53.32.231）">
-            <button onclick="fetchIpInfo()">查询</button>
-            <div id="ipResult"></div>
+        <!-- ===== Tab 2: 登记记录 ===== -->
+        <div id="tabContact" class="tab-content">
+
+            <!-- 联系表单记录 -->
+            <div class="section-header">
+                <h2>联系表单记录</h2>
+                <span class="info" id="contactInfo"></span>
+            </div>
+            <div class="table-area">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>ID</th><th>姓名</th><th>邮箱</th><th>电话</th><th>公司</th><th>消息摘要</th><th>时间</th></tr>
+                        </thead>
+                        <tbody id="contactsBody"></tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="contactPagination"></div>
+            </div>
+
         </div>
 
     </div>
@@ -202,6 +225,19 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('startDate').value = daysAgo(30);
     document.getElementById('endDate').value = todayStr();
 });
+
+// Tab 切换
+function switchTab(name) {
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+    if (name === 'visit') {
+        document.querySelector('.tab-bar button:first-child').classList.add('active');
+        document.getElementById('tabVisit').classList.add('active');
+    } else {
+        document.querySelector('.tab-bar button:last-child').classList.add('active');
+        document.getElementById('tabContact').classList.add('active');
+    }
+}
 
 // 登录
 document.getElementById('loginForm').addEventListener('submit', async function(e) {
@@ -294,7 +330,6 @@ async function loadVisitRecords(p) {
                 else if (ua.indexOf('iPhone') >= 0 || ua.indexOf('iPad') >= 0) os = 'iOS';
                 else if (ua.indexOf('Android') >= 0) os = 'Android';
 
-                // 先显示国家标签
                 var countryTxt = '-';
                 if (v.country === 'CN') countryTxt = '中国';
                 else if (v.country === 'US') countryTxt = '美国';
@@ -470,10 +505,6 @@ async function fetchIpInfo() {
         resultDiv.innerHTML = '<p style="color:red;">网络错误，无法查询</p>';
     }
 }
-
-// 显示联系人详情
-function showContactDetail(id) {
-    alert('联系人 ID: ' + id);
-}
 </script>
 </body>
+</html>
