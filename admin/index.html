@@ -91,11 +91,19 @@ async function loadData() {
         const statsResponse = await fetch(API_ROUTES.stats);
         const statsData = await statsResponse.json();
         const statsDiv = document.getElementById('stats');
-        statsDiv.innerHTML = `
-            <p>总访问量：<span>${statsData.total_visits || 0}</span></p>
-            <p>独立 IP：<span>${statsData.unique_ips || 0}</span></p>
-            <p>热门页面：<span>${statsData.top_pages.length > 0 ? statsData.top_pages.join(', ') : '暂无数据'}</span></p>
-        `;
+        
+        if (statsData.success) {
+            statsDiv.innerHTML = `
+                <p>总访问量：<span>${statsData.total_visits || 0}</span></p>
+                <p>独立访客：<span>${statsData.unique_visitors || 0}</span></p>
+                <p>热门页面 (TOP 5): <span>${(statsData.top_pages || []).map(p => p.page + ' (' + p.count + ')').join(', ') || '暂无数据'}</span></p>
+                <p>来源渠道：<span>${(statsData.referrer_sources || []).map(r => r.source + ' (' + r.count + ')').join(', ') || '暂无数据'}</span></p>
+                <p>设备分布：<span>${(statsData.device_distribution || []).map(d => d.device + ' (' + d.count + ')').join(', ') || '暂无数据'}</span></p>
+                <p>地区分布：<span>${(statsData.region_distribution || []).map(r => r.country + ' (' + r.count + ')').join(', ') || '暂无数据'}</span></p>
+            `;
+        } else {
+            statsDiv.innerHTML = '<p style="color:red;">加载失败</p>';
+        }
     } catch (err) {
         document.getElementById('stats').innerHTML = '加载失败，请检查网络连接';
         console.error('Stats error:', err);
@@ -104,13 +112,13 @@ async function loadData() {
     // 加载表单数据
     try {
         const contactsResponse = await fetch(API_ROUTES.contacts);
-        const contacts = await contactsResponse.json();
+        const contactsData = await contactsResponse.json();
         const tableBody = document.querySelector('#contactsTable tbody');
         
-        if (contacts.length === 0) {
+        if (contactsData.success && contactsData.contacts.length === 0) {
             tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #999;">暂无数据</td></tr>';
-        } else {
-            tableBody.innerHTML = contacts.map(row => {
+        } else if (contactsData.success) {
+            tableBody.innerHTML = contactsData.contacts.map(row => {
                 const messagePreview = row.message ? row.message.substring(0, 30) + (row.message.length > 30 ? '...' : '') : '-';
                 const time = row.timestamp ? new Date(row.timestamp).toLocaleString('zh-CN') : '-';
                 return `
@@ -125,6 +133,8 @@ async function loadData() {
                     </tr>
                 `;
             }).join('');
+        } else {
+            tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: red;">加载失败</td></tr>';
         }
     } catch (err) {
         document.querySelector('#contactsTable tbody').innerHTML = '<tr><td colspan="7" style="text-align: center; color: red;">加载失败</td></tr>';
