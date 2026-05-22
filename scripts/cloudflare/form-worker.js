@@ -86,21 +86,37 @@ export default {
       }
     }
 
-    // 5. GET /api/visits/stats — 访问统计
+    // 5. GET /api/visits/stats — 访问统计（支持 start/end 日期范围，无参数时返回全部）
     if (path === '/api/visits/stats' && request.method === 'GET') {
       try {
-        const date = url.searchParams.get('date') || new Date().toISOString().slice(0, 10);
-        const total = await env.DB.prepare('SELECT COUNT(*) as count FROM page_visits WHERE visit_date = ?').bind(date).first();
-        const unique = await env.DB.prepare('SELECT COUNT(DISTINCT ip) as count FROM page_visits WHERE visit_date = ?').bind(date).first();
-        const pages = await env.DB.prepare('SELECT page_url, COUNT(*) as count FROM page_visits WHERE visit_date = ? GROUP BY page_url ORDER BY count DESC LIMIT 10').bind(date).all();
-        const referrers = await env.DB.prepare("SELECT CASE WHEN referrer = '' OR referrer IS NULL THEN '直接访问' ELSE referrer END as source, COUNT(*) as count FROM page_visits WHERE visit_date = ? GROUP BY source ORDER BY count DESC LIMIT 10").bind(date).all();
-        const devices = await env.DB.prepare("SELECT CASE WHEN user_agent LIKE '%Mobile%' OR user_agent LIKE '%Android%' OR user_agent LIKE '%iPhone%' THEN '移动端' ELSE '桌面端' END as device, COUNT(*) as count FROM page_visits WHERE visit_date = ? GROUP BY device").bind(date).all();
-        const regions = await env.DB.prepare("SELECT CASE WHEN country = '' OR country IS NULL THEN '未知' ELSE country END as country, COUNT(*) as count FROM page_visits WHERE visit_date = ? GROUP BY country ORDER BY count DESC").bind(date).all();
-        const recent = await env.DB.prepare('SELECT id, page_url, ip, country, user_agent, timestamp FROM page_visits WHERE visit_date = ? ORDER BY id DESC LIMIT 50').bind(date).all();
+        const start = url.searchParams.get('start');
+        const end = url.searchParams.get('end');
+        let whereClause = '1=1';
+        let bindParams = [];
+        if (start && end) {
+          whereClause = 'visit_date >= ? AND visit_date <= ?';
+          bindParams = [start, end];
+        } else if (start) {
+          whereClause = 'visit_date >= ?';
+          bindParams = [start];
+        } else if (end) {
+          whereClause = 'visit_date <= ?';
+          bindParams = [end];
+        }
+        const total = await env.DB.prepare('SELECT COUNT(*) as count FROM page_visits WHERE ' + whereClause).bind(...bindParams).first();
+        const unique = await env.DB.prepare('SELECT COUNT(DISTINCT ip) as count FROM page_visits WHERE ' + whereClause).bind(...bindParams).first();
+        const todayStr = new Date().toISOString().slice(0, 10);
+        const todayTotal = await env.DB.prepare('SELECT COUNT(*) as count FROM page_visits WHERE visit_date = ?').bind(todayStr).first();
+        const pages = await env.DB.prepare('SELECT page_url, COUNT(*) as count FROM page_visits WHERE ' + whereClause + ' GROUP BY page_url ORDER BY count DESC LIMIT 10').bind(...bindParams).all();
+        const referrers = await env.DB.prepare("SELECT CASE WHEN referrer = '' OR referrer IS NULL THEN '直接访问' ELSE referrer END as source, COUNT(*) as count FROM page_visits WHERE " + whereClause + " GROUP BY source ORDER BY count DESC LIMIT 10").bind(...bindParams).all();
+        const devices = await env.DB.prepare("SELECT CASE WHEN user_agent LIKE '%Mobile%' OR user_agent LIKE '%Android%' OR user_agent LIKE '%iPhone%' THEN '移动端' ELSE '桌面端' END as device, COUNT(*) as count FROM page_visits WHERE " + whereClause + " GROUP BY device").bind(...bindParams).all();
+        const regions = await env.DB.prepare("SELECT CASE WHEN country = '' OR country IS NULL THEN '未知' ELSE country END as country, COUNT(*) as count FROM page_visits WHERE " + whereClause + " GROUP BY country ORDER BY count DESC").bind(...bindParams).all();
+        const recent = await env.DB.prepare('SELECT id, page_url, ip, country, user_agent, timestamp FROM page_visits WHERE ' + whereClause + ' ORDER BY id DESC LIMIT 50').bind(...bindParams).all();
         return new Response(JSON.stringify({
-          success: true, date,
+          success: true, start: start || 'all', end: end || 'all',
           total_visits: total.count,
           unique_visitors: unique.count,
+          today_visits: todayTotal.count,
           top_pages: pages.results,
           referrer_sources: referrers.results,
           device_distribution: devices.results,
