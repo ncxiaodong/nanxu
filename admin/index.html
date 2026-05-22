@@ -316,7 +316,7 @@ async function loadVisitRecords(p) {
             // 渲染分页
             renderPagination('visitPagination', d.page, Math.ceil(d.total / d.pageSize), function(pg) { loadVisitRecords(pg); });
 
-            // 批量解析 IP 归属地（显示详细地区）
+            // 批量解析 IP 归属地（通过 Worker 代理，显示详细地区）
             resolveIpBatch(d.visits);
 
         } else {
@@ -329,7 +329,7 @@ async function loadVisitRecords(p) {
     }
 }
 
-// 批量解析 IP 归属地
+// 批量解析 IP 归属地（通过 Worker 代理，显示详细地区）
 function resolveIpBatch(visits) {
     var uniqueIps = [];
     var ipSeen = {};
@@ -344,16 +344,16 @@ function resolveIpBatch(visits) {
     }
     if (uniqueIps.length === 0) return;
 
-    // 批量查询最多 100 个 IP
-    var batch = uniqueIps.slice(0, 100);
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://ip-api.com/batch', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            var results = JSON.parse(xhr.responseText);
-            for (var j = 0; j < results.length; j++) {
-                var res = results[j];
+    // 通过 Worker 代理查询（避免 CORS 和 HTTPS 限制）
+    var batch = uniqueIps.slice(0, 50);
+    fetch(API_BASE + '/ip-lookup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ips: batch })
+    }).then(function(r) { return r.json(); }).then(function(data) {
+        if (data.success && data.results) {
+            for (var j = 0; j < data.results.length; j++) {
+                var res = data.results[j];
                 if (res && res.status === 'success') {
                     var loc = res.country + ' ' + res.regionName + ' ' + res.city;
                     ipCache[res.query] = loc;
@@ -361,8 +361,9 @@ function resolveIpBatch(visits) {
                 }
             }
         }
-    };
-    xhr.send(JSON.stringify(batch));
+    }).catch(function(err) {
+        console.error('IP lookup proxy error:', err);
+    });
 }
 
 function updateLocation(ip, locationText) {
@@ -443,7 +444,7 @@ function resetDateRange() {
     loadAllData();
 }
 
-// IP 归属地查询（单个）
+// IP 归属地查询（通过 Worker 代理）
 async function fetchIpInfo() {
     var ip = document.getElementById('ipInput').value.trim();
     var resultDiv = document.getElementById('ipResult');
@@ -451,16 +452,17 @@ async function fetchIpInfo() {
     resultDiv.style.display = 'block';
     resultDiv.innerHTML = '<p>正在查询...</p>';
     try {
-        var r = await fetch('https://ip-api.com/json/' + ip);
-        var d = await r.json();
-        if (d.status === 'success') {
-            resultDiv.innerHTML = '<div class="result-box">' +
-                '<p><strong>IP：</strong>' + d.query + '</p>' +
-                '<p><strong>国家：</strong>' + d.country + ' (' + d.countryCode + ')</p>' +
-                '<p><strong>地区：</strong>' + d.regionName + ' / ' + d.city + '</p>' +
-                '<p><strong>时区：</strong>' + d.timezone + '</p>' +
-                '<p><strong>ISP：</strong>' + d.isp + '</p>' +
-                '<p><strong>组织：</strong>' + d.org + '</p></div>';
+        var r = await fetch(API_BASE + '/ip-lookup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ips: [ip] })
+        });
+        var data = await r.json();
+        if (data.success && data.results && data.results.length > 0 && data.results[0].status === 'success') {
+            var d = data.results[0];
+            resultDiv.innerHTML = '<p><strong>IP：</strong>' + d.query + '</p>' +
+                '<p><strong>国家：</strong>' + d.country + ' (' + (d.countryCode || '') + ')</p>' +
+                '<p><strong>地区：</strong>' + (d.regionName || '') + ' / ' + (d.city || '') + '</p>';
         } else {
             resultDiv.innerHTML = '<p style="color:red;">查询失败：无效的 IP 地址</p>';
         }
@@ -468,6 +470,10 @@ async function fetchIpInfo() {
         resultDiv.innerHTML = '<p style="color:red;">网络错误，无法查询</p>';
     }
 }
+
+// 显示联系人详情
+function showContactDetail(id) {
+    alert('联系人 ID: ' + id);
+}
 </script>
 </body>
-</html>
