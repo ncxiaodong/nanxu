@@ -52,13 +52,19 @@ export default {
       }
     }
 
-    // 3. GET /api/form — 查询表单
+    // 3. GET /api/form — 查询表单（支持分页）
     if (path === '/api/form' && request.method === 'GET') {
       try {
-        const { results } = await env.DB.prepare('SELECT * FROM contacts ORDER BY id DESC').all();
-        return new Response(JSON.stringify({ success: true, contacts: results, count: results.length }), {
-          status: 200, headers: corsHeaders
-        });
+        const page = parseInt(url.searchParams.get('page')) || 1;
+        const pageSize = parseInt(url.searchParams.get('pageSize')) || 20;
+        const offset = (page - 1) * pageSize;
+        const totalRow = await env.DB.prepare('SELECT COUNT(*) as count FROM contacts').first();
+        const total = totalRow.count;
+        const { results } = await env.DB.prepare('SELECT * FROM contacts ORDER BY id DESC LIMIT ? OFFSET ?').bind(pageSize, offset).all();
+        return new Response(JSON.stringify({
+          success: true, contacts: results, count: results.length,
+          total: total, page: page, pageSize: pageSize
+        }), { status: 200, headers: corsHeaders });
       } catch (e) {
         return new Response(JSON.stringify({ success: false, error: e.message }), {
           status: 500, headers: corsHeaders
@@ -145,22 +151,24 @@ export default {
       }
     }
 
-    // 7. GET /api/visits/list — 详细访问记录（支持日期范围）
+    // 7. GET /api/visits/list — 详细访问记录（支持日期范围 + 分页）
     if (path === '/api/visits/list' && request.method === 'GET') {
       try {
         const startDate = url.searchParams.get('start') || new Date().toISOString().slice(0, 10);
         const endDate = url.searchParams.get('end') || new Date().toISOString().slice(0, 10);
-        const { results } = await env.DB.prepare(`
-          SELECT id, page_url, referrer, user_agent, screen_width, screen_height, language, ip, country, timestamp, visit_date
-          FROM page_visits
-          WHERE visit_date >= ? AND visit_date <= ?
-          ORDER BY timestamp DESC
-          LIMIT 1000
-        `).bind(startDate, endDate).all();
+        const page = parseInt(url.searchParams.get('page')) || 1;
+        const pageSize = parseInt(url.searchParams.get('pageSize')) || 50;
+        const offset = (page - 1) * pageSize;
+        const totalRow = await env.DB.prepare('SELECT COUNT(*) as count FROM page_visits WHERE visit_date >= ? AND visit_date <= ?').bind(startDate, endDate).first();
+        const total = totalRow.count;
+        const { results } = await env.DB.prepare('SELECT id, page_url, referrer, user_agent, screen_width, screen_height, language, ip, country, timestamp, visit_date FROM page_visits WHERE visit_date >= ? AND visit_date <= ? ORDER BY timestamp DESC LIMIT ? OFFSET ?').bind(startDate, endDate, pageSize, offset).all();
         return new Response(JSON.stringify({
           success: true,
           visits: results,
-          count: results.length
+          count: results.length,
+          total: total,
+          page: page,
+          pageSize: pageSize
         }), { status: 200, headers: corsHeaders });
       } catch (e) {
         return new Response(JSON.stringify({ success: false, error: e.message }), {
