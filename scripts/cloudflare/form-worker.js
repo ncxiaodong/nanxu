@@ -177,7 +177,40 @@ export default {
       }
     }
 
-    // 8. 404
+    // 8. POST /api/ip-lookup — 批量查询 IP 归属地（代理 ip-api.com）
+    if (path === '/api/ip-lookup' && request.method === 'POST') {
+      try {
+        const body = await request.json();
+        const ips = body.ips;
+        if (!ips || !Array.isArray(ips) || ips.length === 0) {
+          return new Response(JSON.stringify({ success: false, error: '缺少 IP 列表' }), {
+            status: 400, headers: corsHeaders
+          });
+        }
+        // 最多查 50 个
+        const batch = ips.slice(0, 50);
+        const results = [];
+        for (let k = 0; k < batch.length; k++) {
+          const ip = batch[k];
+          try {
+            const resp = await fetch('http://ip-api.com/json/' + ip + '?fields=query,country,regionName,city,status');
+            const data = await resp.json();
+            results.push(data);
+          } catch (e) {
+            results.push({ status: 'fail', query: ip });
+          }
+        }
+        return new Response(JSON.stringify({ success: true, results: results }), {
+          status: 200, headers: corsHeaders
+        });
+      } catch (e) {
+        return new Response(JSON.stringify({ success: false, error: e.message }), {
+          status: 500, headers: corsHeaders
+        });
+      }
+    }
+
+    // 9. 404
     return new Response(JSON.stringify({ success: false, error: 'Not Found' }), {
       status: 404, headers: corsHeaders
     });
