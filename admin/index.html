@@ -8,7 +8,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f2f5; color: #333; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 1440px; margin: 0 auto; padding: 20px; }
         h1 { font-size: 24px; color: #1a1a2e; margin-bottom: 20px; }
         h2 { font-size: 18px; color: #1a1a2e; margin: 25px 0 12px 0; padding-bottom: 8px; border-bottom: 2px solid #e8e8e8; }
         .hidden { display: none !important; }
@@ -18,7 +18,7 @@
         .login-container input:focus { border-color: #4a6cf7; }
         .login-container button { width: 100%; padding: 12px; background: #4a6cf7; color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
         .login-container button:hover { background: #3b5de7; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
         .stat-card { background: #fff; padding: 16px; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
         .stat-card .label { font-size: 13px; color: #888; margin-bottom: 4px; }
         .stat-card .value { font-size: 22px; font-weight: 700; color: #1a1a2e; }
@@ -29,10 +29,11 @@
         .date-range button:hover { background: #3b5de7; }
         .date-range button.reset-btn { background: #888; }
         .date-range button.reset-btn:hover { background: #666; }
-        .table-wrapper { background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow-x: auto; margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .table-area { background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden; margin-bottom: 20px; }
+        .table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
         th { background: #f8f9fa; padding: 10px 12px; text-align: left; font-weight: 600; color: #555; border-bottom: 2px solid #e8e8e8; white-space: nowrap; }
-        td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; }
+        td { padding: 9px 12px; border-bottom: 1px solid #f0f0f0; }
         tr:hover td { background: #f8f9ff; }
         .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; }
         .tag-cn { background: #e8f5e9; color: #2e7d32; }
@@ -41,20 +42,27 @@
         .device-desktop { color: #1565c0; }
         .device-mobile { color: #e65100; }
         .ip-lookup { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); text-align: center; margin-bottom: 20px; }
+        .ip-lookup input { padding: 10px 14px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px; margin-right: 10px; width: 300px; }
         .ip-lookup button { padding: 10px 24px; background: #4a6cf7; color: #fff; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; }
         .ip-lookup button:hover { background: #3b5de7; }
-        .ip-lookup .result { margin-top: 15px; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto; background: #f8f9fa; padding: 16px; border-radius: 8px; display: none; }
-        .ip-lookup .result p { margin: 4px 0; font-size: 14px; }
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
-        .modal-content { background: #fff; margin: 15% auto; padding: 24px; border-radius: 12px; max-width: 450px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
-        .modal-content h3 { margin-bottom: 16px; }
-        .modal-content input { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px; margin-bottom: 12px; }
-        .modal-content button { padding: 8px 20px; background: #4a6cf7; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
+        .result-box { margin-top: 15px; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto; background: #f8f9fa; padding: 16px; border-radius: 8px; }
         .loading { color: #888; padding: 20px; text-align: center; }
         .error { color: #d32f2f; padding: 20px; text-align: center; }
         .empty { color: #999; padding: 30px; text-align: center; font-size: 15px; }
+        .pagination { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px; border-top: 1px solid #f0f0f0; }
+        .pagination button { padding: 6px 14px; border: 1px solid #ddd; border-radius: 6px; background: #fff; cursor: pointer; font-size: 13px; color: #333; }
+        .pagination button:hover:not(:disabled) { background: #f0f2ff; border-color: #4a6cf7; color: #4a6cf7; }
+        .pagination button:disabled { opacity: 0.4; cursor: default; }
+        .pagination button.active { background: #4a6cf7; color: #fff; border-color: #4a6cf7; }
+        .pagination .info { font-size: 13px; color: #888; margin: 0 12px; }
+        .resolving-badge { font-size: 11px; color: #888; padding: 2px 6px; border-radius: 3px; background: #fff3e0; }
+        .resolved-location { font-size: 13px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin: 25px 0 12px 0; padding-bottom: 8px; border-bottom: 2px solid #e8e8e8; }
+        .section-header h2 { margin: 0; border: none; padding: 0; }
+        .section-header .info { font-size: 13px; color: #888; }
         .clickable { cursor: pointer; }
         .clickable:hover { text-decoration: underline; color: #4a6cf7; }
+        .ip-cell { font-family: monospace; font-size: 12px; }
     </style>
 </head>
 <body>
@@ -68,7 +76,7 @@
             <input type="password" id="passwordInput" placeholder="请输入密码" required>
             <button type="submit">进入后台</button>
         </form>
-        <p id="loginError" style="color: red; display: none; margin-top: 10px;">密码错误！</p>
+        <p id="loginError" style="color:red;display:none;margin-top:10px;">密码错误！</p>
     </div>
 
     <!-- 后台内容 -->
@@ -80,94 +88,94 @@
             <input type="date" id="startDate">
             <span>至</span>
             <input type="date" id="endDate">
-            <button onclick="loadVisitRecords()">查询</button>
+            <button onclick="loadAllData()">查询</button>
             <button class="reset-btn" onclick="resetDateRange()">重置</button>
-            <span id="visitCount" style="margin-left: auto; font-size: 13px; color: #888;"></span>
         </div>
 
-        <!-- 访问统计 -->
+        <!-- 访问统计概览 -->
         <h2>访问统计概览</h2>
         <div class="stats-grid" id="stats">
             <div class="stat-card"><div class="label">总访问量</div><div class="value" id="statTotal">-</div></div>
             <div class="stat-card"><div class="label">独立访客</div><div class="value" id="statUnique">-</div></div>
             <div class="stat-card"><div class="label">今日访问</div><div class="value" id="statToday">-</div></div>
-            <div class="stat-card"><div class="label">中国访客</div><div class="value" id="statCN">-</div></div>
-            <div class="stat-card"><div class="label">美国访客</div><div class="value" id="statUS">-</div></div>
-            <div class="stat-card"><div class="label">其他地区</div><div class="value" id="statOther">-</div></div>
+            <div class="stat-card"><div class="label">中国</div><div class="value" id="statCN">-</div></div>
+            <div class="stat-card"><div class="label">美国</div><div class="value" id="statUS">-</div></div>
+            <div class="stat-card"><div class="label">其他</div><div class="value" id="statOther">-</div></div>
         </div>
 
         <!-- 热门页面 -->
-        <h2>热门页面 TOP5</h2>
-        <div class="table-wrapper">
-            <table>
-                <thead><tr><th>页面</th><th>访问次数</th></tr></thead>
-                <tbody id="topPagesBody"></tbody>
-            </table>
+        <h2>热门页面</h2>
+        <div class="table-area">
+            <div class="table-wrapper">
+                <table><thead><tr><th>页面</th><th>次数</th></tr></thead><tbody id="topPagesBody"></tbody></table>
+            </div>
         </div>
 
         <!-- 来源渠道 -->
         <h2>来源渠道</h2>
-        <div class="table-wrapper">
-            <table>
-                <thead><tr><th>来源</th><th>访问次数</th></tr></thead>
-                <tbody id="referrerBody"></tbody>
-            </table>
+        <div class="table-area">
+            <div class="table-wrapper">
+                <table><thead><tr><th>来源</th><th>次数</th></tr></thead><tbody id="referrerBody"></tbody></table>
+            </div>
         </div>
 
         <!-- 设备分布 -->
         <h2>设备分布</h2>
-        <div class="table-wrapper">
-            <table>
-                <thead><tr><th>设备类型</th><th>访问次数</th></tr></thead>
-                <tbody id="deviceBody"></tbody>
-            </table>
+        <div class="table-area">
+            <div class="table-wrapper">
+                <table><thead><tr><th>设备</th><th>次数</th></tr></thead><tbody id="deviceBody"></tbody></table>
+            </div>
         </div>
 
         <!-- 详细访问记录 -->
-        <h2>详细访问记录</h2>
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>时间</th>
-                        <th>IP</th>
-                        <th>归属地</th>
-                        <th>页面</th>
-                        <th>来源</th>
-                        <th>设备</th>
-                        <th>系统</th>
-                        <th>语言</th>
-                    </tr>
-                </thead>
-                <tbody id="visitsBody"></tbody>
-            </table>
+        <div class="section-header">
+            <h2>详细访问记录</h2>
+            <span class="info" id="visitInfo"></span>
+        </div>
+        <div class="table-area">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>IP</th>
+                            <th>归属地</th>
+                            <th>页面</th>
+                            <th>来源</th>
+                            <th>设备</th>
+                            <th>系统</th>
+                            <th>语言</th>
+                        </tr>
+                    </thead>
+                    <tbody id="visitsBody"></tbody>
+                </table>
+            </div>
+            <div class="pagination" id="visitPagination"></div>
         </div>
 
         <!-- 联系表单记录 -->
-        <h2>联系表单记录</h2>
-        <div class="table-wrapper">
-            <table id="contactsTable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>姓名</th>
-                        <th>邮箱</th>
-                        <th>电话</th>
-                        <th>公司</th>
-                        <th>消息摘要</th>
-                        <th>时间</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+        <div class="section-header">
+            <h2>联系表单记录</h2>
+            <span class="info" id="contactInfo"></span>
+        </div>
+        <div class="table-area">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>ID</th><th>姓名</th><th>邮箱</th><th>电话</th><th>公司</th><th>消息摘要</th><th>时间</th></tr>
+                    </thead>
+                    <tbody id="contactsBody"></tbody>
+                </table>
+            </div>
+            <div class="pagination" id="contactPagination"></div>
         </div>
 
-        <!-- IP 查询 -->
+        <!-- IP 归属地查询 -->
         <h2>IP 归属地查询</h2>
         <div class="ip-lookup">
-            <input type="text" id="ipInput" placeholder="输入 IP 地址 (如：59.53.32.231)" style="width: 300px; padding: 10px 14px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px; margin-right: 10px;">
+            <input type="text" id="ipInput" placeholder="输入 IP 地址（如：59.53.32.231）">
             <button onclick="fetchIpInfo()">查询</button>
-            <div id="ipResult" class="result"></div>
+            <div id="ipResult"></div>
         </div>
 
     </div>
@@ -176,12 +184,20 @@
 <script>
 const API_BASE = '/api';
 const PASSWORD = 'hckx-188826';
+const PAGE_SIZE = 50;
+
+// 状态
+let visitPage = 1, contactPage = 1;
+let visitTotal = 0, contactTotal = 0;
+
+// IP 归属地缓存
+const ipCache = {};
 
 // 日期工具
 function todayStr() { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
 function daysAgo(n) { const d = new Date(); d.setDate(d.getDate()-n); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
 
-// 初始化日期
+// 初始化
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('startDate').value = daysAgo(30);
     document.getElementById('endDate').value = todayStr();
@@ -202,6 +218,8 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 });
 
 async function loadAllData() {
+    visitPage = 1;
+    contactPage = 1;
     await Promise.all([
         loadStats(),
         loadVisitRecords(),
@@ -209,18 +227,19 @@ async function loadAllData() {
     ]);
 }
 
-// 加载统计概览
+// === 统计概览 ===
 async function loadStats() {
     try {
-        const r = await fetch(API_BASE + '/visits/stats');
+        const start = document.getElementById('startDate').value;
+        const end = document.getElementById('endDate').value;
+        const r = await fetch(API_BASE + '/visits/stats?start=' + start + '&end=' + end);
         const d = await r.json();
         if (d.success) {
             document.getElementById('statTotal').textContent = d.total_visits || 0;
             document.getElementById('statUnique').textContent = d.unique_visitors || 0;
             document.getElementById('statToday').textContent = d.today_visits || 0;
-            // 地区分布统计
             let cn = 0, us = 0, other = 0;
-            (d.region_distribution || []).forEach(r => {
+            (d.region_distribution || []).forEach(function(r) {
                 if (r.country === 'CN') cn = r.count;
                 else if (r.country === 'US') us = r.count;
                 else other += r.count;
@@ -228,109 +247,177 @@ async function loadStats() {
             document.getElementById('statCN').textContent = cn;
             document.getElementById('statUS').textContent = us;
             document.getElementById('statOther').textContent = other;
-            // 热门页面
-            const topBody = document.getElementById('topPagesBody');
-            if (d.top_pages && d.top_pages.length > 0) {
-                topBody.innerHTML = d.top_pages.map(p => '<tr><td>' + p.page + '</td><td>' + p.count + '</td></tr>').join('');
-            } else {
-                topBody.innerHTML = '<tr><td colspan="2" class="empty">暂无数据</td></tr>';
-            }
-            // 来源
-            const refBody = document.getElementById('referrerBody');
-            if (d.referrer_sources && d.referrer_sources.length > 0) {
-                refBody.innerHTML = d.referrer_sources.map(r => '<tr><td>' + (r.source || '直接访问') + '</td><td>' + r.count + '</td></tr>').join('');
-            } else {
-                refBody.innerHTML = '<tr><td colspan="2" class="empty">暂无数据</td></tr>';
-            }
-            // 设备
-            const devBody = document.getElementById('deviceBody');
-            if (d.device_distribution && d.device_distribution.length > 0) {
-                devBody.innerHTML = d.device_distribution.map(dd => '<tr><td>' + dd.device + '</td><td>' + dd.count + '</td></tr>').join('');
-            } else {
-                devBody.innerHTML = '<tr><td colspan="2" class="empty">暂无数据</td></tr>';
-            }
+
+            setTable('topPagesBody', d.top_pages, function(p) { return '<tr><td>' + p.page_url + '</td><td>' + p.count + '</td></tr>'; });
+            setTable('referrerBody', d.referrer_sources, function(r) { return '<tr><td>' + (r.source || '直接访问') + '</td><td>' + r.count + '</td></tr>'; });
+            setTable('deviceBody', d.device_distribution, function(dd) { return '<tr><td>' + dd.device + '</td><td>' + dd.count + '</td></tr>'; });
         }
-    } catch(e) {
-        console.error('Stats error:', e);
+    } catch(e) { console.error('Stats error:', e); }
+}
+
+function setTable(id, data, renderFn) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (data && data.length > 0) {
+        el.innerHTML = data.map(renderFn).join('');
+    } else {
+        el.innerHTML = '<tr><td colspan="2" class="empty">暂无数据</td></tr>';
     }
 }
 
-// 加载详细访问记录
-async function loadVisitRecords() {
-    const start = document.getElementById('startDate').value;
-    const end = document.getElementById('endDate').value;
-    const tbody = document.getElementById('visitsBody');
+// === 详细访问记录（含分页 + 自动归属地解析）===
+async function loadVisitRecords(p) {
+    if (p !== undefined) visitPage = p;
+    var start = document.getElementById('startDate').value;
+    var end = document.getElementById('endDate').value;
+    var tbody = document.getElementById('visitsBody');
     tbody.innerHTML = '<tr><td colspan="8" class="loading">加载中...</td></tr>';
 
     try {
-        const r = await fetch(API_BASE + '/visits/list?start=' + start + '&end=' + end);
-        const d = await r.json();
-        document.getElementById('visitCount').textContent = '共 ' + (d.count || 0) + ' 条记录';
+        var r = await fetch(API_BASE + '/visits/list?start=' + start + '&end=' + end + '&page=' + visitPage + '&pageSize=' + PAGE_SIZE);
+        var d = await r.json();
 
         if (d.success && d.visits && d.visits.length > 0) {
-            tbody.innerHTML = d.visits.map(v => {
-                const time = v.timestamp ? new Date(v.timestamp).toLocaleString('zh-CN') : '-';
-                const page = v.page_url || '-';
-                const ref = v.referrer || '-';
-                const lang = v.language || '-';
-                // IP 归属地 - 自动查询
-                let location = '-';
-                if (v.country === 'CN') location = '中国';
-                else if (v.country === 'US') location = '美国';
-                else if (v.country) location = v.country;
-                // 设备判断
-                const isMobile = v.screen_width && v.screen_width < 768;
-                const device = isMobile ? '移动端' : '桌面端';
-                // 系统判断
-                const ua = v.user_agent || '';
-                let os = '未知';
-                if (ua.includes('Windows')) os = 'Windows';
-                else if (ua.includes('Mac OS') || ua.includes('macOS')) os = 'macOS';
-                else if (ua.includes('Linux')) os = 'Linux';
-                else if (ua.includes('iPhone') || ua.includes('iPad')) os = 'iOS';
-                else if (ua.includes('Android')) os = 'Android';
+            visitTotal = d.total || 0;
+            document.getElementById('visitInfo').textContent = d.total + ' 条记录（第 ' + d.page + '/' + Math.ceil(d.total / d.pageSize) + ' 页）';
 
-                const countryTag = v.country === 'CN' ? 'tag-cn' : (v.country === 'US' ? 'tag-us' : 'tag-other');
+            // 渲染表格
+            tbody.innerHTML = d.visits.map(function(v) {
+                var time = v.timestamp ? new Date(v.timestamp).toLocaleString('zh-CN') : '-';
+                var isMobile = v.screen_width && v.screen_width < 768;
+                var device = isMobile ? '移动端' : '桌面端';
+                var ua = v.user_agent || '';
+                var os = '未知';
+                if (ua.indexOf('Windows') >= 0) os = 'Windows';
+                else if (ua.indexOf('Mac OS') >= 0 || ua.indexOf('macOS') >= 0) os = 'macOS';
+                else if (ua.indexOf('Linux') >= 0) os = 'Linux';
+                else if (ua.indexOf('iPhone') >= 0 || ua.indexOf('iPad') >= 0) os = 'iOS';
+                else if (ua.indexOf('Android') >= 0) os = 'Android';
+
+                // 先显示国家标签
+                var countryTxt = '-';
+                if (v.country === 'CN') countryTxt = '中国';
+                else if (v.country === 'US') countryTxt = '美国';
+                else if (v.country) countryTxt = v.country;
+                var countryClass = v.country === 'CN' ? 'tag-cn' : (v.country === 'US' ? 'tag-us' : 'tag-other');
 
                 return '<tr>' +
                     '<td>' + time + '</td>' +
-                    '<td style="font-family:monospace;font-size:13px;">' + v.ip + '</td>' +
-                    '<td><span class="tag ' + countryTag + '">' + location + '</span></td>' +
-                    '<td>' + page + '</td>' +
-                    '<td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + ref + '">' + ref + '</td>' +
+                    '<td class="ip-cell">' + v.ip + '</td>' +
+                    '<td><span class="tag ' + countryClass + '" id="loc-' + v.ip.replace(/\./g,'_').replace(/:/g,'_') + '">' + countryTxt + '</span></td>' +
+                    '<td>' + (v.page_url || '-') + '</td>' +
+                    '<td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + (v.referrer || '') + '">' + (v.referrer || '-') + '</td>' +
                     '<td class="' + (isMobile ? 'device-mobile' : 'device-desktop') + '">' + device + '</td>' +
                     '<td>' + os + '</td>' +
-                    '<td>' + lang + '</td>' +
+                    '<td>' + (v.language || '-') + '</td>' +
                 '</tr>';
             }).join('');
+
+            // 渲染分页
+            renderPagination('visitPagination', d.page, Math.ceil(d.total / d.pageSize), function(pg) { loadVisitRecords(pg); });
+
+            // 批量解析 IP 归属地（显示详细地区）
+            resolveIpBatch(d.visits);
+
         } else {
             tbody.innerHTML = '<tr><td colspan="8" class="empty">没有数据</td></tr>';
+            document.getElementById('visitPagination').innerHTML = '';
+            document.getElementById('visitInfo').textContent = '';
         }
     } catch(e) {
-        tbody.innerHTML = '<tr><td colspan="8" class="error">加载失败：' + e.message + '</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="error">加载失败</td></tr>';
     }
 }
 
-// 复位日期
-function resetDateRange() {
-    document.getElementById('startDate').value = daysAgo(30);
-    document.getElementById('endDate').value = todayStr();
-    loadVisitRecords();
+// 批量解析 IP 归属地
+function resolveIpBatch(visits) {
+    var uniqueIps = [];
+    var ipSeen = {};
+    for (var i = 0; i < visits.length; i++) {
+        var ip = visits[i].ip;
+        if (ip && !ipSeen[ip] && !ipCache[ip]) {
+            ipSeen[ip] = true;
+            uniqueIps.push(ip);
+        } else if (ip && ipCache[ip]) {
+            updateLocation(ip, ipCache[ip]);
+        }
+    }
+    if (uniqueIps.length === 0) return;
+
+    // 批量查询最多 100 个 IP
+    var batch = uniqueIps.slice(0, 100);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://ip-api.com/batch', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var results = JSON.parse(xhr.responseText);
+            for (var j = 0; j < results.length; j++) {
+                var res = results[j];
+                if (res && res.status === 'success') {
+                    var loc = res.country + ' ' + res.regionName + ' ' + res.city;
+                    ipCache[res.query] = loc;
+                    updateLocation(res.query, loc);
+                }
+            }
+        }
+    };
+    xhr.send(JSON.stringify(batch));
 }
 
-// 加载联系表单
-async function loadContacts() {
+function updateLocation(ip, locationText) {
+    var safeIp = ip.replace(/\./g,'_').replace(/:/g,'_');
+    var el = document.getElementById('loc-' + safeIp);
+    if (el) {
+        el.textContent = locationText;
+    }
+}
+
+// === 分页控件 ===
+function renderPagination(containerId, currentPage, totalPages, onClick) {
+    var el = document.getElementById(containerId);
+    if (!el) return;
+    if (totalPages <= 1) { el.innerHTML = ''; return; }
+
+    var html = '';
+    html += '<button onclick="(function(){ ' + containerId + '_go(1) })()" ' + (currentPage <= 1 ? 'disabled' : '') + '>首页</button>';
+    html += '<button onclick="(function(){ ' + containerId + '_go(' + (currentPage-1) + ') })()" ' + (currentPage <= 1 ? 'disabled' : '') + '>上一页</button>';
+
+    var startPage = Math.max(1, currentPage - 2);
+    var endPage = Math.min(totalPages, currentPage + 2);
+    for (var p = startPage; p <= endPage; p++) {
+        html += '<button class="' + (p === currentPage ? 'active' : '') + '" onclick="(function(){ ' + containerId + '_go(' + p + ') })()">' + p + '</button>';
+    }
+
+    html += '<button onclick="(function(){ ' + containerId + '_go(' + (currentPage+1) + ') })()" ' + (currentPage >= totalPages ? 'disabled' : '') + '>下一页</button>';
+    html += '<button onclick="(function(){ ' + containerId + '_go(' + totalPages + ') })()" ' + (currentPage >= totalPages ? 'disabled' : '') + '>末页</button>';
+    html += '<span class="info">' + currentPage + '/' + totalPages + '</span>';
+
+    el.innerHTML = html;
+
+    // 注册全局函数
+    var funcName = containerId + '_go';
+    window[funcName] = onClick;
+}
+
+// === 联系表单（带分页）===
+async function loadContacts(p) {
+    if (p !== undefined) contactPage = p;
+    var tbody = document.getElementById('contactsBody');
+    tbody.innerHTML = '<tr><td colspan="7" class="loading">加载中...</td></tr>';
+
     try {
-        const r = await fetch(API_BASE + '/form');
-        const d = await r.json();
-        const tbody = document.querySelector('#contactsTable tbody');
+        var r = await fetch(API_BASE + '/form?page=' + contactPage + '&pageSize=20');
+        var d = await r.json();
         if (d.success && d.contacts && d.contacts.length > 0) {
-            tbody.innerHTML = d.contacts.map(row => {
-                const msg = row.message ? row.message.substring(0, 30) + (row.message.length > 30 ? '...' : '') : '-';
-                const time = row.timestamp ? new Date(row.timestamp).toLocaleString('zh-CN') : '-';
+            contactTotal = d.total || 0;
+            document.getElementById('contactInfo').textContent = d.total + ' 条记录';
+            tbody.innerHTML = d.contacts.map(function(row) {
+                var msg = row.message ? row.message.substring(0, 30) + (row.message.length > 30 ? '...' : '') : '-';
+                var time = row.timestamp ? new Date(row.timestamp).toLocaleString('zh-CN') : '-';
                 return '<tr>' +
                     '<td>' + (row.id || '-') + '</td>' +
-                    '<td>' + (row.name || '-') + '</td>' +
+                    '<td class="clickable" onclick="alert(\'姓名: ' + (row.name || '') + '\\n邮箱: ' + (row.email || '') + '\\n电话: ' + (row.phone || '') + '\\n公司: ' + (row.company || '') + '\\n消息: ' + (row.message || '') + '\')">' + (row.name || '-') + '</td>' +
                     '<td>' + (row.email || '-') + '</td>' +
                     '<td>' + (row.phone || '-') + '</td>' +
                     '<td>' + (row.company || '-') + '</td>' +
@@ -338,31 +425,42 @@ async function loadContacts() {
                     '<td>' + time + '</td>' +
                 '</tr>';
             }).join('');
+            renderPagination('contactPagination', d.page, Math.ceil(d.total / d.pageSize), function(pg) { loadContacts(pg); });
         } else {
             tbody.innerHTML = '<tr><td colspan="7" class="empty">没有数据</td></tr>';
+            document.getElementById('contactPagination').innerHTML = '';
+            document.getElementById('contactInfo').textContent = '';
         }
     } catch(e) {
-        document.querySelector('#contactsTable tbody').innerHTML = '<tr><td colspan="7" class="error">加载失败</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" class="error">加载失败</td></tr>';
     }
 }
 
-// IP 归属地查询
+// 复位日期
+function resetDateRange() {
+    document.getElementById('startDate').value = daysAgo(30);
+    document.getElementById('endDate').value = todayStr();
+    loadAllData();
+}
+
+// IP 归属地查询（单个）
 async function fetchIpInfo() {
-    const ip = document.getElementById('ipInput').value.trim();
-    const resultDiv = document.getElementById('ipResult');
+    var ip = document.getElementById('ipInput').value.trim();
+    var resultDiv = document.getElementById('ipResult');
     if (!ip) { alert('请输入 IP 地址！'); return; }
     resultDiv.style.display = 'block';
     resultDiv.innerHTML = '<p>正在查询...</p>';
     try {
-        const r = await fetch('https://ip-api.com/json/' + ip);
-        const d = await r.json();
+        var r = await fetch('https://ip-api.com/json/' + ip);
+        var d = await r.json();
         if (d.status === 'success') {
-            resultDiv.innerHTML = '<p><strong>IP：</strong>' + d.query + '</p>' +
+            resultDiv.innerHTML = '<div class="result-box">' +
+                '<p><strong>IP：</strong>' + d.query + '</p>' +
                 '<p><strong>国家：</strong>' + d.country + ' (' + d.countryCode + ')</p>' +
                 '<p><strong>地区：</strong>' + d.regionName + ' / ' + d.city + '</p>' +
                 '<p><strong>时区：</strong>' + d.timezone + '</p>' +
                 '<p><strong>ISP：</strong>' + d.isp + '</p>' +
-                '<p><strong>组织：</strong>' + d.org + '</p>';
+                '<p><strong>组织：</strong>' + d.org + '</p></div>';
         } else {
             resultDiv.innerHTML = '<p style="color:red;">查询失败：无效的 IP 地址</p>';
         }
