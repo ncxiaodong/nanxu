@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>南序官网管理后台</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1 id="mainTitle">南序官网后台管理系统</h1>
+
+    <!-- 登录界面 (默认显示) -->
+    <div id="loginSection" class="login-container">
+        <h2>管理员登录</h2>
+        <form id="loginForm">
+            <input type="password" id="passwordInput" placeholder="请输入密码" required>
+            <button type="submit">进入后台</button>
+        </form>
+        <p id="loginError" style="color: red; display: none; margin-top: 10px;">密码错误！</p>
+    </div>
+
+    <!-- 后台内容 (登录成功后显示) -->
+    <div id="dashboardSection" class="hidden">
+        
+        <!-- 访问统计区 -->
+        <h2>📊 网站访问分析</h2>
+        <div id="stats">加载中...</div>
+
+        <!-- 表单提交管理区 -->
+        <h2>📝 联系表单记录 (D1 数据)</h2>
+        <div class="table-wrapper">
+            <table id="contactsTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>姓名</th>
+                        <th>邮箱</th>
+                        <th>电话</th>
+                        <th>公司</th>
+                        <th>消息摘要</th>
+                        <th>时间</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- IP 详情查询区 -->
+        <h2>🗺️ IP 归属地分析</h2>
+        <div style="padding: 20px; border: 1px dashed #ccc; text-align: center;">
+            <button id="lookupIpBtn" onclick="showIpLookupModal()">🔍 查询 IP 归属地</button>
+            <p style="margin-top: 15px; font-size: 14px; color: #666;">点击按钮，输入任意 IP 地址进行查询（例如：59.53.32.231）。</p>
+        </div>
+
+    </div> <!-- /dashboardSection -->
+
+    <!-- Modal (弹窗) 结构 -->
+    <div id="ipModal" class="modal">
+        <div class="modal-content">
+            <h3>IP 地址归属地查询</h3>
+            <label for="ipInput">输入 IP:</label>
+            <input type="text" id="ipInput" placeholder="请输入 IP 地址 (如：59.53.32.231)">
+            <button onclick="fetchIpInfo()">提交</button>
+            <div id="ipResult" class="ip-info" style="display: none;"></div>
+            <button onclick="closeModal()" style="float: right; margin-top: 20px;">关闭</button>
+        </div>
+    </div>
+
+</div> <!-- /container -->
+
+<script src="config.js"></script>
+<script>
+// 登录逻辑
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const password = document.getElementById('passwordInput').value;
+    if (password === ADMIN_PASSWORD) {
+        document.getElementById('loginSection').classList.add('hidden');
+        document.getElementById('dashboardSection').classList.remove('hidden');
+        document.getElementById('mainTitle').innerText = '南序官网后台管理系统 - 已登录';
+        await loadData();
+    } else {
+        document.getElementById('loginError').style.display = 'block';
+    }
+});
+
+// 加载数据
+async function loadData() {
+    // 加载访问统计
+    try {
+        const statsResponse = await fetch(API_ROUTES.stats);
+        const statsData = await statsResponse.json();
+        const statsDiv = document.getElementById('stats');
+        statsDiv.innerHTML = `
+            <p>总访问量：<span>${statsData.total_visits || 0}</span></p>
+            <p>独立 IP：<span>${statsData.unique_ips || 0}</span></p>
+            <p>热门页面：<span>${statsData.top_pages.length > 0 ? statsData.top_pages.join(', ') : '暂无数据'}</span></p>
+        `;
+    } catch (err) {
+        document.getElementById('stats').innerHTML = '加载失败，请检查网络连接';
+        console.error('Stats error:', err);
+    }
+
+    // 加载表单数据
+    try {
+        const contactsResponse = await fetch(API_ROUTES.contacts);
+        const contacts = await contactsResponse.json();
+        const tableBody = document.querySelector('#contactsTable tbody');
+        
+        if (contacts.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #999;">暂无数据</td></tr>';
+        } else {
+            tableBody.innerHTML = contacts.map(row => {
+                const messagePreview = row.message ? row.message.substring(0, 30) + (row.message.length > 30 ? '...' : '') : '-';
+                const time = row.timestamp ? new Date(row.timestamp).toLocaleString('zh-CN') : '-';
+                return `
+                    <tr onclick="showContactDetail(${row.id})">
+                        <td>${row.id}</td>
+                        <td>${row.name || '-'}</td>
+                        <td>${row.email || '-'}</td>
+                        <td>${row.phone || '-'}</td>
+                        <td>${row.company || '-'}</td>
+                        <td>${messagePreview}</td>
+                        <td>${time}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+    } catch (err) {
+        document.querySelector('#contactsTable tbody').innerHTML = '<tr><td colspan="7" style="text-align: center; color: red;">加载失败</td></tr>';
+        console.error('Contacts error:', err);
+    }
+}
+
+// 显示 IP 查询弹窗
+function showIpLookupModal() {
+    document.getElementById('ipModal').style.display = 'block';
+    document.getElementById('ipInput').value = '';
+    document.getElementById('ipResult').style.display = 'none';
+}
+
+// 关闭弹窗
+function closeModal() {
+    document.getElementById('ipModal').style.display = 'none';
+}
+
+// 点击弹窗外部关闭
+window.onclick = function(event) {
+    const modal = document.getElementById('ipModal');
+    if (event.target === modal) {
+        closeModal();
+    }
+}
+
+// 获取 IP 归属地信息
+async function fetchIpInfo() {
+    const ip = document.getElementById('ipInput').value.trim();
+    if (!ip) {
+        alert('请输入 IP 地址！');
+        return;
+    }
+
+    const resultDiv = document.getElementById('ipResult');
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = '<p>正在查询...</p>';
+
+    try {
+        const response = await fetch(`https://ip-api.com/json/${ip}`);
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            resultDiv.innerHTML = `
+                <p><strong>IP 地址:</strong> ${data.query}</p>
+                <p><strong>国家/地区:</strong> ${data.country}</p>
+                <p><strong>省份/城市:</strong> ${data.regionName} / ${data.city}</p>
+                <p><strong>时区:</strong> ${data.timezone}</p>
+                <p><strong>ISP:</strong> ${data.isp}</p>
+                <p><strong>组织:</strong> ${data.org}</p>
+            `;
+        } else {
+            resultDiv.innerHTML = '<p style="color: red;">查询失败：无效的 IP 地址或 API 错误</p>';
+        }
+    } catch (err) {
+        resultDiv.innerHTML = '<p style="color: red;">网络错误，无法查询</p>';
+        console.error('IP lookup error:', err);
+    }
+}
+
+// 显示联系人详情（可选扩展）
+function showContactDetail(id) {
+    // 这里可以扩展为显示完整消息内容
+    alert('联系人 ID: ' + id + '\n（完整功能可扩展）');
+}
+</script>
+</body>
+</html>
