@@ -4,5 +4,6 @@ const ADMIN_PASSWORD = "hckx-188826";
 // API 路由配置
 const API_ROUTES = {
     stats: 'https://nanxu.vip/api/visits/stats',
+    visits: 'https://nanxu.vip/api/visits/list',
     contacts: 'https://nanxu.vip/api/form'
 };
