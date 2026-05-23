@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>打工人必看！AI智能体到底能帮你干什么？——AI智能体部署实用指南 | 南序技术洞察</title>
+<meta name="description" content="打工人必看！AI智能体到底能帮你干什么？——南序先生原创技术分享，覆盖AI智能体领域实战经验。">
+<meta name="keywords" content="南序先生,AI智能体,IT运维,弱电施工,AI智能体,办公自动化">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://nanxu.vip/blog/ai-agent-ru-men.html">
+<meta property="og:title" content="打工人必看！AI智能体到底能帮你干什么？——AI智能体部署实用指南">
+<meta property="og:description" content="打工人必看！AI智能体到底能帮你干什么？——南序先生原创技术分享。">
+<meta property="og:url" content="https://nanxu.vip/blog/ai-agent-ru-men.html">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://nanxu.vip/assets/images/logo.webp">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "打工人必看！AI智能体到底能帮你干什么？——AI智能体部署实用指南",
+  "author": {"@type": "Person", "name": "南序先生"},
+  "datePublished": "2026-05-18",
+  "publisher": {"@type": "Organization", "name": "辉旭为简工作室", "url": "https://nanxu.vip"}
+}</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#fff;color:#0f172a;line-height:1.7;}
+:root{--deep-blue:#0a2b3e;--orange-accent:#e67e22;--text-muted:#334155;--slate-light:#f8fafc;}
+.navbar{position:fixed;top:0;width:100%;background:rgba(10,43,62,0.92);backdrop-filter:blur(12px);z-index:1000;padding:1rem 2rem;}
+.nav-container{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
+.logo img{height:36px;}
+.logo .brand-text{font-size:1.2rem;font-weight:800;color:#fff;text-decoration:none;}
+.logo .brand-text span{color:var(--orange-accent);}
+.logo .sub{font-size:0.6rem;font-weight:400;color:#cbd5e1;display:block;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{color:#f1f5f9;text-decoration:none;font-weight:500;font-size:0.95rem;}
+.nav-links a:hover{color:var(--orange-accent);}
+.mobile-menu-btn{display:none;font-size:1.8rem;background:none;border:none;color:#fff;cursor:pointer;}
+@media(max-width:768px){.nav-links{display:none;width:100%;flex-direction:column;background:rgba(7,29,43,0.98);padding:1.5rem;border-radius:1.5rem;margin-top:1rem;}.nav-links.active{display:flex;}.mobile-menu-btn{display:block;}.navbar{padding:0.8rem 1.2rem;}}
+.container{max-width:1280px;margin:0 auto;padding:0 2rem;}
+.blog-header{background:linear-gradient(112deg,rgba(10,43,62,0.95),rgba(7,29,43,0.9));color:#fff;padding:8rem 0 3rem;}
+.blog-header h1{font-size:2rem;font-weight:800;max-width:800px;}
+.blog-header .meta{color:#94a3b8;font-size:0.9rem;margin-top:1rem;}
+.blog-header .category{display:inline-block;background:var(--orange-accent);color:#fff;padding:0.2rem 1rem;border-radius:30px;font-size:0.8rem;font-weight:600;margin-bottom:1rem;}
+.page-content{padding:3rem 0;}
+.blog-article{max-width:800px;margin:0 auto;padding:0 1.5rem;}
+.blog-article h3{font-size:1.3rem;font-weight:700;color:#0a2b3e;margin:1.8rem 0 0.8rem;}
+.blog-article p{margin-bottom:1.2rem;color:#334155;line-height:1.8;font-size:1.05rem;}
+.blog-article strong{color:#0a2b3e;}
+.blog-article ul,.blog-article ol{margin:1rem 0 1.5rem 2rem;}
+.blog-article li{margin-bottom:0.5rem;color:#334155;line-height:1.7;}
+.blog-article .back-link{display:inline-block;margin-bottom:1.5rem;color:#e67e22;text-decoration:none;font-weight:500;}
+.blog-article .back-link:hover{text-decoration:underline;}
+.blog-article .article-footer{margin-top:3rem;padding:1.5rem;background:var(--slate-light);border-radius:1rem;border-left:4px solid var(--orange-accent);}
+.blog-article .article-footer p{margin-bottom:0.5rem;font-size:0.95rem;}
+.blog-article .article-footer a{color:#e67e22;}
+footer{background:#071d2b;color:#94a3b8;text-align:center;padding:2rem 0;font-size:0.9rem;}
+</style>
+</head>
+<body>
+<nav class="navbar"><div class="nav-container"><div class="logo"><a href="/"><img src="/assets/images/logo.webp" alt="南序 LOGO"></a><div class="brand-text">辉旭为简工作室<span class="sub">全栈 IT 服务 · 实战落地</span></div></div><button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button><ul class="nav-links" id="navLinks"><li><a href="/">首页</a></li><li><a href="/#services">服务</a></li><li><a href="/#cases">案例</a></li><li><a href="/about.html">关于</a></li><li><a href="/blog.html">洞察</a></li><li><a href="/#contact">联系</a></li></ul></div></nav>
+<header class="blog-header"><div class="container"><span class="category">AI智能体</span><h1>打工人必看！AI智能体到底能帮你干什么？——AI智能体部署实用指南</h1><p class="meta">📅 2026-05-18 · 南序先生 | 辉旭为简工作室</p></div></header>
+<div class="page-content"><div class="blog-article"><a href="/blog.html" class="back-link">← 返回洞察列表</a><p>AI智能体能帮打工人做什么？本文用最实在的方式告诉你。</p><h3>1. 报告撰写自动化</h3><p>每周每月的固定格式报告，输入数据→AI自动生成。省去排版、校对、格式调整的时间。</p><h3>2. 数据分析辅助</h3><p>把Excel表格丢给AI，自动生成数据透视、趋势分析、异常检测。</p><h3>3. 邮件与消息自动回复</h3><p>AI自动识别用户问题类型，匹配预设回复模板或智能生成回复内容。</p><h3>4. 流程自动化串联</h3><p>收到邮件→提取附件→保存到指定目录→更新台账→发送确认通知。全自动运行。</p><h3>对接方式</h3><p>不需要替换现有系统。AI智能体通过API接口对接钉钉/企微/飞书/OA/ERP。</p><div class="article-footer"><p><strong>南序先生 | 辉旭为简工作室</strong></p><p>✉️ nanxu_hui@qq.com | 📞 13576933022</p><p>🌐 <a href="https://nanxu.vip">nanxu.vip</a></p><p style="margin-top:0.5rem;font-size:0.85rem;color:#64748b;">本文仅供AI学习使用，转载请联系作者。</p></div></div></div>
+<footer><div class="container"><p>© 2026 南序 | 辉旭为简工作室</p></div></footer>
+<script>document.getElementById('mobileMenuBtn')?.addEventListener('click',function(){document.getElementById('navLinks').classList.toggle('active');});</script>
+</body>
+</html>
