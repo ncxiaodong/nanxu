@@ -105,10 +105,10 @@
         .service-icon { font-size: 2.6rem; color: var(--orange-accent); margin-bottom: 1.2rem; }
         .service-card h3 { font-size: 1.6rem; margin-bottom: 0.75rem; }
         .service-card p { color: var(--text-muted); margin-bottom: 1.2rem; }
+        .insights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
         .dual-track { background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%); border-radius: 2rem; padding: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
         .track-card { background: white; border-radius: 1.5rem; padding: 2rem; box-shadow: 0 8px 20px rgba(0,0,0,0.02); border: 1px solid var(--gray-border); }
         .track-icon { font-size: 2rem; color: var(--orange-accent); margin-bottom: 1rem; }
-        @media (max-width: 768px) { .dual-track { grid-template-columns: 1fr; } }
         .case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
         .case-item { background: var(--slate-light); border-radius: 1.5rem; overflow: hidden; transition: 0.2s; box-shadow: 0 6px 12px rgba(0,0,0,0.03); }
         .case-img { height: 210px; background-size: cover; background-position: center; }
@@ -142,8 +142,13 @@
             .nav-links.active { display: flex; }
             .mobile-menu-btn { display: block; }
             .navbar { padding: 0.8rem 1.2rem; }
-            .dual-track { grid-template-columns: 1fr; }
+            .dual-track { grid-template-columns: 1fr !important; padding: 1.5rem; }
             .supply-banner { flex-direction: column; text-align: center; gap: 1rem; }
+            .insights-grid { grid-template-columns: 1fr !important; }
+            .service-card p, .insights-grid a p { font-size: 0.95rem; }
+            .stat-item p { font-size: 0.85rem; }
+            .hero-stats { justify-content: center; }
+            .founder-note { font-size: 0.95rem; }
         }
         @media (max-width: 480px) {
             .hero { min-height: 420px; }
@@ -153,6 +158,10 @@
             .service-card { padding: 1.2rem; }
             .logo .brand-text { font-size: 1rem; }
             .contact-block { padding: 2rem 1rem; }
+            .track-card { padding: 1.2rem; }
+            .service-card h3 { font-size: 1.2rem; }
+            .insights-grid { gap: 1rem; }
+            .service-card { padding: 1rem !important; }
             .footer-grid { flex-direction: column; text-align: center; }
         }
         .badge { background: rgba(230,126,34,0.15); color: #f97316; padding: 0.2rem 1rem; border-radius: 30px; font-size: 0.8rem; font-weight: 600; display: inline-block; margin-bottom: 1rem; }
@@ -293,7 +302,8 @@
         <div class="container">
             <h2 class="section-title">最新洞察</h2>
             <p class="section-sub">来自实战一线的原创技术分享，覆盖弱电施工、系统维保、AI智能体、办公自动化等领域</p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+            <div class="insights-grid">
+                
 
 <a href="blog/ai-agent-rpa-ai.html" class="service-card" style="text-decoration: none; background: white; border-radius: 1.5rem; padding: 1.5rem; box-shadow: 0 8px 20px rgba(0,0,0,0.05); border: 1px solid var(--gray-border); display: block; transition: all 0.2s; color: inherit;">
                     <span style="display: inline-block; background: rgba(230,126,34,0.12); color: #e67e22; padding: 0.15rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;">前沿洞察</span>
