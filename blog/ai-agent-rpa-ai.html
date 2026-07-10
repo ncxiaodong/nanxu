@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent+RPA：你说一句话，AI就能帮你操作电脑 | 南序先生</title>
+    <meta name="description" content="有个常见的场景——公司里Excel表格做得最多的人，不是财务经理，不是数据分析师，而是那个每天重复「复制→粘贴→导出→另存为」四个动作的小会计。一天3个小时，一年就是700多个小时，全耗在按钮上。很多人问：能不能跟电脑说句话，它自己就把活干">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://nanxu.vip/blog/ai-agent-rpa-ai.html">
+    <meta property="og:title" content="AI Agent+RPA：你说一句话，AI就能帮你操作电脑">
+    <meta property="og:description" content="有个常见的场景——公司里Excel表格做得最多的人，不是财务经理，不是数据分析师，而是那个每天重复「复制→粘贴→导出→另存为」四个动作的小会计。一天3个小时，一年就是700多个小时，全耗在按钮上。很多人问：能不能跟电脑说句话，它自己就把活干">
+    <meta property="og:url" content="https://nanxu.vip/blog/ai-agent-rpa-ai.html">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://nanxu.vip/assets/blog/ai-agent-rpa-ai.jpg">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "AI Agent+RPA：你说一句话，AI就能帮你操作电脑",
+        "description": "有个常见的场景——公司里Excel表格做得最多的人，不是财务经理，不是数据分析师，而是那个每天重复「复制→粘贴→导出→另存为」四个动作的小会计。一天3个小时，一年就是700多个小时，全耗在按钮上。很多人问：能不能跟电脑说句话，它自己就把活干",
+        "author": {"@type": "Person", "name": "南序先生"},
+        "publisher": {
+            "@type": "Organization",
+            "name": "辉旭为简工作室"
+        },
+        "datePublished": "2026-07-10",
+        "image": "https://nanxu.vip/assets/blog/ai-agent-rpa-ai.jpg"
+    }
+    </script>
+    <link rel="stylesheet" href="blog.css">
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+    data-cf-beacon='{"token": "682aba48b08e4520bec55fa6fd1828d7"}'></script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a href="../" class="nav-logo">南序先生</a>
+            <a href="../blog.html" class="nav-link">← 返回洞察</a>
+        </div>
+    </nav>
+    <article class="blog-article">
+        <h1>AI Agent+RPA：你说一句话，AI就能帮你操作电脑</h1>
+        <div class="article-meta">2026-07-10 · 南序先生</div>
+        
+        <div class="article-body">
+<p>有个常见的场景——公司里Excel表格做得最多的人，不是财务经理，不是数据分析师，而是那个每天重复「复制→粘贴→导出→另存为」四个动作的小会计。一天3个小时，一年就是700多个小时，全耗在按钮上。很多人问：能不能跟电脑说句话，它自己就把活干了？</p>
+<p>能。这就是AI Agent加RPA要解决的事。</p>
+<p>不过大多数企业听到「自动化」三个字，第一反应不是兴奋，是发怵：「万一系统崩溃了，数据丢了怎么办？」这个担心很正常，也确实是个真问题。今天不聊概念，直接说落地。</p>
+<h2>一、核心架构：让AI读懂人话，再让机器动手干活</h2>
+<img src="../assets/blog/ai-agent-rpa-ai_1.webp" alt="配图1" style="max-width:100%;border-radius:8px;margin:20px 0;">
+<p>让电脑听懂人话，核心就三个字：意图识别。</p>
+<p>你告诉AI「帮我把上个月的销售数据整理成表格」，它先解析你的意思，拆解成具体步骤：查数据库→提取数据→格式化→发邮件。每一步对应一个RPA组件，通过API调用数据库，设超时和重试机制。</p>
+<p>技术上用的是BERT这类语义模型。具体参数上：超时设30秒，失败重试3次，尽量不靠鼠标点击——因为点画面靠坐标定位，网络卡一下、系统弹个窗，整个脚本可能直接崩掉。</p>
+<p>但有个关键：大多数企业的核心系统（ERP、财务、OA）界面不是一成不变的。一个按钮挪了个位置，RPA脚本可能直接跑偏。</p>
+<p>解法是「动态元素捕获」——不用像素坐标，改用元素ID、CSS选择器或XPath匹配，再配合OCR识别文本标签做兜底。界面怎么改都不怕。</p>
+<h2>二、三个最该先做的场景</h2>
+<img src="../assets/blog/ai-agent-rpa-ai_2.webp" alt="配图2" style="max-width:100%;border-radius:8px;margin:20px 0;">
+<p>自动化最忌讳贪多求全。建议从以下三个高频固定场景切入，见效快、风险低。</p>
+<p><strong>场景一：财务月末对账</strong></p>
+<p>财务最头疼的事：银行流水跟ERP系统数据对不上。传统做法是导出两份Excel，手工比对。用AI加RPA，一句话「帮我对账上个月银行流水」，自动抓取银行流水和ERP数据，比对差异项，生成对账表。设每日定时执行，失败自动告警。</p>
+<p><strong>场景二：报表自动生成</strong></p>
+<p>很多公司每周出好几张报表，数据来源不同系统。AI自动汇总各数据源，按模板生成报表，直接发到负责人邮箱。如果你说「上周的销售报表加一个按区域拆分的明细」，AI能就地改模板，下周自动生效。</p>
+<p><strong>场景三：数据录入与格式转换</strong></p>
+<p>系统导出的数据格式五花八门——有PDF表格、有扫描件、有带乱码的CSV。AI先处理这些杂数据：OCR识别→格式校验→内容清洗→写入目标系统。字符置信度设80%以上，低于这个值的自动标出来等人复核。</p>
+<h2>三、放心让AI干活的关键：人工复核节点</h2>
+<p>自动化不是撒手不管，是「可控地放手」。</p>
+<p>关键操作前——比如付款审批、数据删除、权限修改——插一个人工复核节点。RPA发审批请求到企业微信或钉钉，附上操作详情。管理员15分钟内点确认或驳回。超时未处理，流程自动挂起并通知上级。</p>
+<p>每个任务执行时，详细记下时间戳、操作步骤、输入输出数据。某一步失败了，自动撤销已经执行的前序操作。日志保留180天，按日期、用户、流程类型都能查。</p>
+<p>机器干机器的，人做人的把关，各司其职。</p>
+<h2>四、落地的运维保障</h2>
+<p>自动化脚本不是一劳永逸。系统升级、文件路径变化、某个字段改了名字，脚本都可能失效。</p>
+<p>部署监控仪表板，实时看各脚本运行状态、成功率和执行耗时。设阈值：成功率低于90%自动告警，连续失败3次就暂停并通知运维。每月做一次脚本健康检查：更新定位器、测试新版本兼容性、清理过期日志。</p>
+<p>有种情况特别容易被忽视：某个脚本跑了几个月都没事，突然某天系统更新后开始出错。如果没有回滚机制，数据可能已经被污染了。建议配自动回滚：某步骤失败了，自动撤销前序操作（比如删掉已插入的临时数据），把系统恢复到上一个安全状态。</p>
+<h2>一点建议</h2>
+<p>AI Agent加RPA不是大公司才用得起的方案，中小企业同样适用。建议从一两个高频痛点场景开始跑，跑通了再逐步扩大。给自己三个月时间，先验证效果，再做扩展规划。</p>
+<p>你的公司是不是也有那种每天花好几个小时在重复操作的岗位？欢迎随时聊聊，免费给你诊断一下现状，看看哪些环节适合切入自动化。不绕弯子，不画大饼。</p>
+<p>官网：www.nanxu.vip | 邮箱：nanxu_hui@qq.com | 电话/微信：13576933022</p>
+<p>—— 文/南序先生｜辉旭为简工作室</p>
+        </div>
+        <div class="article-footer">
+            <p>—— 文/南序先生｜辉旭为简工作室</p>
+            <p>官网：<a href="https://nanxu.vip">nanxu.vip</a> | 邮箱：nanxu_hui@qq.com</p>
+        </div>
+    </article>
+    <footer class="site-footer">
+        <p>© 2026 辉旭为简工作室 · 南序先生</p>
+    </footer>
+</body>
+</html>
