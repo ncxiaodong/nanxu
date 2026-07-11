@@ -229,7 +229,12 @@
             background: linear-gradient(180deg, transparent 40%, rgba(7,7,10,0.6));
         }
         .case-body { padding: 1.25rem; }
-        .case-body h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; line-height: 1.4; }
+                .case-tag {
+            display: inline-block; font-size: 0.7rem; color: var(--accent);
+            background: rgba(249,115,22,0.1); padding: 0.2rem 0.6rem;
+            border-radius: 4px; margin-bottom: 0.5rem; font-weight: 500;
+        }
+.case-body h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; line-height: 1.4; }
         .case-body p { color: var(--text-2); font-size: 0.82rem; line-height: 1.55; margin-bottom: 0.75rem; }
         .case-link { color: var(--accent); font-size: 0.82rem; font-weight: 600; text-decoration: none; }
         /* === 创始人引言 === */
@@ -292,11 +297,13 @@
         }
         .insight:hover { border-color: var(--accent); transform: translateY(-3px); }
         .insight-tag {
-            display: inline-block; background: rgba(249,115,22,0.12); color: var(--accent);
-            padding: 0.2rem 0.7rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;
-            margin-bottom: 0.75rem;
+            /* 已废弃 - 改用 insight-date */
         }
-        .insight h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.45; color: var(--text); }
+                .insight-date {
+            display: inline-block; font-size: 0.72rem; color: var(--text-3);
+            letter-spacing: 1px; margin-bottom: 0.6rem; font-weight: 500;
+        }
+.insight h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.45; color: var(--text); }
         .insight p { color: var(--text-2); font-size: 0.85rem; line-height: 1.6; }
         /* === 联系 === */
         .contact {
@@ -506,35 +513,35 @@
                 </div>
                 <div class="case-grid">
                     <div class="case">
-                        <div class="case-img" style="background-image: url('https://images.unsplash.com/photo-1581092162384-898d6b1c1f6c?w=600&auto=format');"></div>
+                        <div class="case-img" style="background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format');"></div>
                         <div class="case-body">
-                            <h4>南昌某电子厂弱电智能化改造</h4>
-                            <p>全厂网络重构+机房搬迁，零盲区，故障率降低78%，续签3年维保。</p>
-                            <a href="cases/case1.html" class="case-link">查看详情 →</a>
+                            <span class="case-tag">弱电智能化</span>
+                            <h4>某制造企业弱电智能化改造</h4>
+                            <p>全厂网络重构+机房搬迁，实现零盲区覆盖，网络故障率降低78%。</p>
                         </div>
                     </div>
                     <div class="case">
-                        <div class="case-img" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format');"></div>
+                        <div class="case-img" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format');"></div>
                         <div class="case-body">
-                            <h4>某商贸公司VBA全自动对账</h4>
-                            <p>销售订单到财务对账全自动，月省40人/时，年节约成本20万。</p>
-                            <a href="cases/case2.html" class="case-link">查看详情 →</a>
+                            <span class="case-tag">财务自动化</span>
+                            <h4>某企业VBA财务对账系统</h4>
+                            <p>销售订单到财务对账全流程自动化，月省40人时，年节约成本20万。</p>
                         </div>
                     </div>
                     <div class="case">
-                        <div class="case-img" style="background-image: url('https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&auto=format');"></div>
+                        <div class="case-img" style="background-image: url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&auto=format');"></div>
                         <div class="case-body">
-                            <h4>某教育机构AI智能体部署</h4>
+                            <span class="case-tag">AI智能体</span>
+                            <h4>某企业AI智能问答系统</h4>
                             <p>基于Hermes Agent搭建智能问答，处理70%日常咨询，释放3名客服。</p>
-                            <a href="cases/case3.html" class="case-link">查看详情 →</a>
                         </div>
                     </div>
                     <div class="case">
-                        <div class="case-img" style="background-image: url('https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?w=600&auto=format');"></div>
+                        <div class="case-img" style="background-image: url('https://images.unsplash.com/photo-1551703599-6b3e5f08c566?w=600&auto=format');"></div>
                         <div class="case-body">
-                            <h4>某制造企业IT维保托管</h4>
+                            <span class="case-tag">IT托管</span>
+                            <h4>某企业IT基础设施托管</h4>
                             <p>服务器/ERP/网络设备全托管，故障响应＜30分钟，全年零重大事故。</p>
-                            <a href="cases/case4.html" class="case-link">查看详情 →</a>
                         </div>
                     </div>
                 </div>
@@ -597,42 +604,33 @@
                     <p class="section-sub">覆盖弱电施工、系统维保、AI智能体、办公自动化等领域</p>
                 </div>
                 <div class="insights-grid">
-                <a href="blog/ai-e3d05a.html" class="service-card" style="text-decoration: none; background: white; border-radius: 1.5rem; padding: 1.5rem; box-shadow: 0 8px 20px rgba(0,0,0,0.05); border: 1px solid var(--gray-border); display: block; transition: all 0.2s; color: inherit;">
-                    <span style="display: inline-block; background: rgba(230,126,34,0.12); color: #e67e22; padding: 0.15rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;">企业服务</span>
-                    <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--deep-blue);">具身智能：AI从屏幕走进物理世界完整指南（附详细步骤）</h4>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">——</p>
-                </a>
-                
-                
-                
-                
+                    <a class="insight" href="blog/ai-e3d05a.html">
+                        <span class="insight-date">2026.07</span>
+                        <h4>具身智能：AI从屏幕走进物理世界完整指南</h4>
+                        <p>从人形机器人到机械臂，具身智能的三大技术栈、四步落地流程，附实操配置清单。</p>
+                    </a>
                     <a class="insight" href="blog/ai-agent-rpa-ai.html">
-                        <span class="insight-tag">前沿洞察</span>
+                        <span class="insight-date">2026.07</span>
                         <h4>AI Agent+RPA：你说一句话，AI就能帮你操作电脑</h4>
                         <p>意图识别+动态元素捕获+人工复核——AI Agent加RPA的核心架构。</p>
                     </a>
+                    <a class="insight" href="blog/mcp-ai.html">
+                        <span class="insight-date">2026.07</span>
+                        <h4>MCP协议：让AI工具像搭积木一样连接</h4>
+                        <p>从Claude到Cursor，MCP协议如何成为AI Agent生态的"USB接口"。</p>
+                    </a>
                     <a class="insight" href="blog/shu-ju-xiao-hui-wan-zheng-zhi-nan.html">
-                        <span class="insight-tag">企业服务</span>
+                        <span class="insight-date">2026.07</span>
                         <h4>数据销毁完整指南：别让旧电脑变成"定时炸弹"</h4>
                         <p>HDD和SSD的不同销毁方式、三级数据敏感度处理方案。</p>
                     </a>
                     <a class="insight" href="blog/tian-ting-gong-wen.html">
-                        <span class="insight-tag">AI智能体</span>
+                        <span class="insight-date">2026.06</span>
                         <h4>天庭公文流转系统瘫痪，哪吒用AI分身救场</h4>
                         <p>四个AI智能体分身让审批从三天变三十分钟。</p>
                     </a>
-                    <a class="insight" href="blog/ruo-dian-bu-xian.html">
-                        <span class="insight-tag">弱电施工</span>
-                        <h4>办公室网络总断？90%是弱电布线的问题</h4>
-                        <p>网线质量、强弱电分离、水晶头压接——四大布线陷阱及解决方案。</p>
-                    </a>
-                    <a class="insight" href="blog/fu-wu-qi-wei-bao.html">
-                        <span class="insight-tag">系统维保</span>
-                        <h4>公司服务器多久没管了？这5件事做还来得及</h4>
-                        <p>清灰除尘、硬盘监测、备份演练——服务器维保必须做的5件事。</p>
-                    </a>
                     <a class="insight" href="blog/excel-duo-biao-he-bing.html">
-                        <span class="insight-tag">办公自动化</span>
+                        <span class="insight-date">2026.05</span>
                         <h4>Excel合并50张表要多久？从3天到3分钟</h4>
                         <p>VBA+AI多表合并方案，不改操作习惯，费用仅3000-5000元。</p>
                     </a>
